@@ -115,7 +115,6 @@ modrinth {
     projectId = project.modrinth_project_id
     versionNumber = project.version
     versionType = "release"
-    uploadFile = jar
     changelog = file("CHANGELOG.md").getText("UTF-8")
     gameVersions = [project.minecraft_version]
     uploadFile = remapJar
