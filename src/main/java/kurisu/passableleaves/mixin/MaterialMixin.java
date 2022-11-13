@@ -1,6 +1,5 @@
 package kurisu.passableleaves.mixin;
 
-import kurisu.passableleaves.PassableLeaves;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
 import org.spongepowered.asm.mixin.Final;
