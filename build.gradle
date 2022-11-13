@@ -2,10 +2,15 @@ plugins {
     id 'fabric-loom' version '1.0-SNAPSHOT'
     id 'maven-publish'
     id "com.modrinth.minotaur" version "2.+"
+    id "com.matthewprenger.cursegradle" version "1.4.0"
+    id 'se.bjurr.gitchangelog.git-changelog-gradle-plugin' version '1.73.0'
 }
 
 version = project.mod_version
 group = project.maven_group
+
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(rootProject.file("local.properties")))
 
 repositories {
     // Add repositories to retrieve artifacts from in here.
@@ -98,9 +103,16 @@ publishing {
     }
 }
 
+task gitChangelogTask(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
+    file = file("CHANGELOG.md")
+    fromRepo = file(".")
+    prependToFile = false // false will replace the file, true will prepend content
+    templateContent = file('changelog.template').getText('UTF-8')
+}
+
 modrinth {
-    token = System.getenv("MODRINTH_TOKEN")
-    projectId = project.mod_id
+    token = localProperties["modrinth_token"]
+    projectId = project.modrinth_project_id
     versionNumber = project.version
     versionType = "release"
     uploadFile = jar
@@ -109,7 +121,33 @@ modrinth {
     dependencies {
         required.project "fabric-api"
         required.project "completeconfig"
-        required.project "nbtcrafting"
+        required.project "nbt-crafting"
+    }
+    syncBodyFrom = rootProject.file("README.md").text
+}
 
+tasks.modrinth.dependsOn(tasks.modrinthSyncBody, tasks.gitChangelogTask)
+
+curseforge {curseforge_project_id
+    apiKey =localProperties["curseforge_token"]
+    project {
+        id = project.curseforge_project_id
+        changelog = file("CHANGELOG.md")
+        releaseType = 'release'
+        changelogType = "markdown"
+        addGameVersion project.minecraft_version
+        addGameVersion "Fabric"
+
+        mainArtifact(jar) {
+            displayName = "Passable Leaves $project.version"
+            relations {
+                requiredDependency 'fabric-api'
+                requiredDependency 'completeconfig'
+                requiredDependency 'nbt-crafting'
+            }
+        }
     }
 }
+
+tasks.curseforge.dependsOn(tasks.gitChangelogTask)
+
