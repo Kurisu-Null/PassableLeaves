@@ -1,0 +1,31 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:any_mod_loaded",
+      "values": ["nbtcrafting"]
+    }
+  ],
+  "type": "nbtcrafting:wrapped",
+  "recipe": {
+    "type": "crafting_shapeless",
+    "ingredients": [
+      {
+        "item": "enchanted_book"
+      },
+      {
+        "tag": "leaves"
+      }
+    ],
+    "result": {
+      "item": "enchanted_book",
+      "data": {
+        "StoredEnchantments": [
+          {
+            "lvl": 1,
+            "id": "passableleaves:leaf_walker"
+          }
+        ]
+      }
+    }
+  }
+}

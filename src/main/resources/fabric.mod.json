@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "passableleaves",
+  "version": "${version}",
+  "name": "PassableLeaves",
+  "description": "You want to run through leaves? With this mod its possible. It even let you run on them when having the right enchantment!",
+  "authors": [
+    "Kurisu"
+  ],
+  "contact": {
+    "repo": "https://github.com/Kurisu-Null/PassableLeaves.git"
+  },
+  "license": "MIT",
+  "icon": "assets/passableleaves/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "kurisu.passableleaves.PassableLeaves"
+    ],
+    "client": [
+      "kurisu.passableleaves.PassableLeavesClient"
+    ]
+  },
+  "mixins": [
+    "passableLeaves.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.10",
+    "fabric": "*",
+    "minecraft": "1.18.2",
+    "completeconfig": "*",
+    "nbtcrafting": "*"
+  }
+}

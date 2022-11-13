@@ -1,0 +1,22 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "kurisu.passableleaves.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "PathNodeTypeMixin",
+    "LandPathNodeMakerMixin",
+    "EntityMixin",
+    "LeavesBlockMixin",
+    "LivingEntityMixin",
+    "MaterialBuilderAccess",
+    "MaterialMixin",
+    "SnowBlockMixin",
+    "VineBlockMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
