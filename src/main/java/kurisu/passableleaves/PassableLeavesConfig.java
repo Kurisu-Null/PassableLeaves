@@ -5,7 +5,7 @@ import me.lortseam.completeconfig.api.ConfigEntries;
 import me.lortseam.completeconfig.api.ConfigEntry;
 
 @ConfigContainer.Transitive
-@ConfigEntries
+@ConfigEntries(includeAll = true)
 public class PassableLeavesConfig extends me.lortseam.completeconfig.data.Config implements ConfigContainer {
 
     public PassableLeavesConfig() {

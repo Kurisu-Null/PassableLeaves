@@ -1,8 +1,7 @@
 package kurisu.passableleaves;
 
-import kurisu.passableleaves.enchantment.PassableLeavesEnchantments;
 import me.lortseam.completeconfig.gui.ConfigScreenBuilder;
-import me.lortseam.completeconfig.gui.cloth.ClothConfigScreenBuilder;
+import me.lortseam.completeconfig.gui.coat.CoatScreenBuilder;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -11,6 +10,6 @@ import net.fabricmc.api.Environment;
 public class PassableLeavesClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        ConfigScreenBuilder.setMain(PassableLeaves.MOD_ID, new ClothConfigScreenBuilder());
+        ConfigScreenBuilder.setMain(PassableLeaves.MOD_ID, new CoatScreenBuilder());
     }
 }

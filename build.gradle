@@ -42,8 +42,8 @@ dependencies {
 
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-    modImplementation("com.gitlab.Lortseam:completeconfig:${project.completeConfig_version}")
-
+    modImplementation("com.gitlab.Lortseam.completeconfig:base:${project.completeConfig_version}")
+    modImplementation("com.gitlab.Lortseam.completeconfig:gui-coat:${project.completeConfig_version}")
     modImplementation "de.siphalor:${project.nbtcrafting_version}"
 }
 
@@ -116,6 +116,7 @@ modrinth {
     versionNumber = project.version
     versionType = "release"
     uploadFile = jar
+    changelog = file("CHANGELOG.md").getText("UTF-8")
     gameVersions = [project.minecraft_version]
     loaders = ["fabric"]
     dependencies {
@@ -128,7 +129,7 @@ modrinth {
 
 tasks.modrinth.dependsOn(tasks.modrinthSyncBody, tasks.gitChangelogTask)
 
-curseforge {curseforge_project_id
+curseforge {
     apiKey =localProperties["curseforge_token"]
     project {
         id = project.curseforge_project_id
