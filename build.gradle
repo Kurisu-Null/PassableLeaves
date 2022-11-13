@@ -115,7 +115,7 @@ modrinth {
     projectId = project.modrinth_project_id
     versionNumber = project.version
     versionType = "release"
-    uploadFile = jar
+    uploadFile = remapJar
     gameVersions = [project.minecraft_version]
     loaders = ["fabric"]
     dependencies {
@@ -138,7 +138,7 @@ curseforge {curseforge_project_id
         addGameVersion project.minecraft_version
         addGameVersion "Fabric"
 
-        mainArtifact(jar) {
+        mainArtifact(remapJar) {
             displayName = "Passable Leaves $project.version"
             relations {
                 requiredDependency 'fabric-api'
