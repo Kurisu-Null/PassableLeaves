@@ -118,6 +118,7 @@ modrinth {
     uploadFile = jar
     changelog = file("CHANGELOG.md").getText("UTF-8")
     gameVersions = [project.minecraft_version]
+    uploadFile = remapJar
     loaders = ["fabric"]
     dependencies {
         required.project "fabric-api"
@@ -137,7 +138,7 @@ curseforge {
         addGameVersion project.minecraft_version
         addGameVersion "Fabric"
 
-        mainArtifact(jar) {
+        mainArtifact(remapJar) {
             displayName = "Passable Leaves $project.version"
             relations {
                 requiredDependency 'fabric-api'
