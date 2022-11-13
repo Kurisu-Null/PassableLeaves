@@ -6,7 +6,7 @@ Changelog of Passable Leaves.
 **feat: support for version 1.19.2**
 
 
-[ae41b0c5e420775](https://github.com/Kurisu-Null/PassableLeaves/commit/ae41b0c5e420775) Kurisu *2022-11-13 19:48:54*
+[9b57b6270f606ab](https://github.com/Kurisu-Null/PassableLeaves/commit/9b57b6270f606ab) Kurisu *2022-11-13 19:49:40*
 
 **feat: add gradle tasks for curseforge and modrinth, split properties for secrets**
 

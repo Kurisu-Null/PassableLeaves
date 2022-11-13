@@ -127,8 +127,6 @@ modrinth {
     syncBodyFrom = rootProject.file("README.md").text
 }
 
-tasks.modrinth.dependsOn(tasks.modrinthSyncBody, tasks.gitChangelogTask)
-
 curseforge {
     apiKey =localProperties["curseforge_token"]
     project {
@@ -149,6 +147,4 @@ curseforge {
         }
     }
 }
-
-tasks.curseforge.dependsOn(tasks.gitChangelogTask)
 
