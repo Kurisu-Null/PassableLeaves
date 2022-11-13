@@ -3,6 +3,16 @@ Changelog of Passable Leaves.
 ## Unreleased
 ### No issue
 
+**fix: correct depends in fabric mod declaration**
+
+
+[0551b2618bd6e2e](https://github.com/Kurisu-Null/PassableLeaves/commit/0551b2618bd6e2e) Kurisu *2022-11-13 22:17:26*
+
+**feat: readme, changelog generation now manual**
+
+
+[360633c7efb902c](https://github.com/Kurisu-Null/PassableLeaves/commit/360633c7efb902c) Kurisu *2022-11-13 20:46:35*
+
 **feat: support for version 1.19.2**
 
 
