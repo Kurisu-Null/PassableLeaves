@@ -1,12 +1,15 @@
 {
   "enchantment.passableleaves.leaf_walker": "Blattläufer",
   "enchantment.passableleaves.leaf_walker.desc": "Erlaubt es dem Speiler auf Blätter zu laufen.",
-  "config.passableleaves.fallingDistanceReductionMultiplicator": " Falldistanz multiplikator",
-  "config.passableleaves.fallingSpeedReductionMultiplicator": "Fall geschwindigkeit multiplikator",
-  "config.passableleaves.slowMultiplicator": "Beweungsgeschwindkeits multiplikator",
+  "config.passableleaves.fallingDistanceReductionMultiplier": " Falldistanz multiplikator",
+  "config.passableleaves.fallingSpeedReductionMultiplier": "Fall geschwindigkeit multiplikator",
+  "config.passableleaves.slowMultiplier": "Beweungsgeschwindkeits multiplikator",
   "config.passableleaves.fallingEnabled": "Wende die fallmultiplikatoren an",
   "config.passableleaves.slowEnabled": "Wende den Bewegunsmultiplaktor an",
   "config.passableleaves.soundEnabled": "Mod sounds aktiviert",
   "config.passableleaves.enchantmentEnabled": "Verzauberung aktiviert",
   "config.passableleaves.particlesEnabled": "Partikel aktiviert",
-  "config.passableleaves.playerOnlyAffected": "Wende nur an spielern an"}
+  "config.passableleaves.playerOnlyAffected": "Wende nur an spielern an",
+  "config.passableleaves.walkOnTopOfLeavesEnabled": "Laufe auf Blätter ohne verzauberung",
+  "config.passableleaves.sprintOnTopOfLeavesEnabled": "Sprinte auf Blätter ohne verzauberung"
+}

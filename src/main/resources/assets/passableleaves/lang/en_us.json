@@ -1,13 +1,15 @@
 {
   "enchantment.passableleaves.leaf_walker": "Leaf Walker",
   "enchantment.passableleaves.leaf_walker.desc": "Allows the player to walk on leaves.",
-  "config.passableleaves.fallingDistanceReductionMultiplicator": "Falling distance redutcion multiplicator",
-  "config.passableleaves.fallingSpeedReductionMultiplicator": "Falling speed redutcion multiplicator",
-  "config.passableleaves.slowMultiplicator": "Movement slow multiplicator",
-  "config.passableleaves.fallingEnabled": "Apply falling multiplicators",
+  "config.passableleaves.fallingDistanceReductionMultiplier": "Falling distance reduction multiplier",
+  "config.passableleaves.fallingSpeedReductionMultiplier": "Falling speed reduction multiplier",
+  "config.passableleaves.slowMultiplier": "Movement slow multiplier",
+  "config.passableleaves.fallingEnabled": "Apply falling multiplier",
   "config.passableleaves.slowEnabled": "Apply movement slow",
   "config.passableleaves.soundEnabled": "Enable mod sounds",
   "config.passableleaves.enchantmentEnabled": "Enable enchantments",
   "config.passableleaves.particlesEnabled": "Enable particles",
-  "config.passableleaves.playerOnlyAffected": "Player only affected"
+  "config.passableleaves.playerOnlyAffected": "Player only affected",
+  "config.passableleaves.walkOnTopOfLeavesEnabled": "Walk on leaves without enchantment",
+  "config.passableleaves.sprintOnTopOfLeavesEnabled": "Sprint on leaves without enchantment"
 }

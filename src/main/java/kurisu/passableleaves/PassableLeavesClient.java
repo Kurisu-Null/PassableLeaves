@@ -13,4 +13,5 @@ public class PassableLeavesClient implements ClientModInitializer {
     public void onInitializeClient() {
         ConfigScreenBuilder.setMain(PassableLeaves.MOD_ID, new ClothConfigScreenBuilder());
     }
+
 }
