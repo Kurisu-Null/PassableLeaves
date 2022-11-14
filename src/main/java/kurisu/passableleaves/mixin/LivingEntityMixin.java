@@ -3,7 +3,6 @@ package kurisu.passableleaves.mixin;
 import kurisu.passableleaves.PassableLeaves;
 import kurisu.passableleaves.PassableLeavesConfig;
 import kurisu.passableleaves.access.EntityAccess;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.*;
 import net.minecraft.entity.player.PlayerEntity;
@@ -24,11 +23,9 @@ public abstract class LivingEntityMixin {
     @Nullable
     public abstract EntityAttributeInstance getAttributeInstance(EntityAttribute attribute);
 
-    private PassableLeavesConfig config = PassableLeaves.getConfig();
-
     @Inject(method = "tickMovement", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;addPowderSnowSlowIfNeeded()V"))
     public void passableleaves_tickMovement(CallbackInfo ci) {
-        if (config.isSlowEnabled()) {
+        if (PassableLeavesConfig.isSlowEnabled()) {
             this.removeLeavesSlow();
             this.addLeavesSlowIfNeeded();
         }
@@ -45,13 +42,14 @@ public abstract class LivingEntityMixin {
     }
 
     public void addLeavesSlowIfNeeded() {
-        Boolean isFlyingInCreative = false;
-        if (((Entity) (Object) this) instanceof PlayerEntity) {
-            isFlyingInCreative =
-                    ((PlayerEntity) (Object) this).getAbilities().creativeMode && ((PlayerEntity) (Object) this).getAbilities().flying;
+        // don't affect creative mode and flying
+        if (((LivingEntity) (Object) this) instanceof PlayerEntity) {
+            if (PassableLeaves.isFlyingInCreative(((PlayerEntity) (Object) this))) {
+                return;
+            }
         }
 
-        if (((EntityAccess) this).getIsInsideLeaves() && !isFlyingInCreative) {
+        if (((EntityAccess) this).getIsInsideLeaves()) {
 
             EntityAttributeInstance entityAttributeInstance =
                     this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
@@ -60,9 +58,9 @@ public abstract class LivingEntityMixin {
                 return;
             }
 
-            float slowEffect = config.getSlowMultiplicator();
+            float slowEffect = PassableLeavesConfig.getSlowMultiplier();
             entityAttributeInstance.addTemporaryModifier(
-                    new EntityAttributeModifier(LEAVES_SLOW_ID, "Leaves slow", (double) slowEffect,
+                    new EntityAttributeModifier(LEAVES_SLOW_ID, "Leaves slow", slowEffect,
                             EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
         }
     }

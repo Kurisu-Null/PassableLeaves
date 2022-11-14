@@ -1,4 +1,5 @@
 plugins {
+    id "io.freefair.lombok" version "6.5.1"
     id 'fabric-loom' version '1.0-SNAPSHOT'
     id 'maven-publish'
     id "com.modrinth.minotaur" version "2.+"
@@ -122,13 +123,13 @@ modrinth {
     dependencies {
         required.project "fabric-api"
         required.project "completeconfig"
-        required.project "nbt-crafting"
+        optional.project "nbt-crafting"
     }
     syncBodyFrom = rootProject.file("README.md").text
 }
 
 curseforge {
-    apiKey =localProperties["curseforge_token"]
+    apiKey = localProperties["curseforge_token"]
     project {
         id = project.curseforge_project_id
         changelog = file("CHANGELOG.md")
@@ -142,7 +143,7 @@ curseforge {
             relations {
                 requiredDependency 'fabric-api'
                 requiredDependency 'completeconfig'
-                requiredDependency 'nbt-crafting'
+                optionalDependency 'nbt-crafting'
             }
         }
     }

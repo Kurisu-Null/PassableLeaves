@@ -28,7 +28,9 @@
     "fabricloader": ">=0.14.10",
     "fabric": "*",
     "minecraft": "1.19.2",
-    "completeconfig": "^2.0.0",
-    "nbtcrafting": "^2.2.2"
+    "completeconfig": "^2.0.0"
+  },
+  "recommends": {
+    "nbtcrafting": "^2.0.0"
   }
 }

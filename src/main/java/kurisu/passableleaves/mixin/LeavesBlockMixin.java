@@ -8,7 +8,6 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.pathing.NavigationType;
-import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
@@ -32,15 +31,13 @@ public abstract class LeavesBlockMixin {
             Entity entity = ((EntityShapeContext) context).getEntity();
 
             if (entity instanceof LivingEntity) {
-                PassableLeavesConfig config = PassableLeaves.getConfig();
-                if (!entity.isPlayer() && config.isPlayerOnlyAffected()) {
+                if (!entity.isPlayer() && PassableLeavesConfig.isPlayerOnlyAffected()) {
                     return VoxelShapes.fullCube();
                 }
 
                 // don't affect creative mode and flying
                 if (entity instanceof PlayerEntity) {
                     if (PassableLeaves.isFlyingInCreative(((PlayerEntity) (Object) entity))) {
-                        System.out.println(PathNodeType.LEAVES.getDefaultPenalty());
                         return VoxelShapes.empty();
                     }
                 }
@@ -49,21 +46,27 @@ public abstract class LeavesBlockMixin {
                     return VoxelShapes.empty();
                 }
 
-                if (!config.isEnchantmentEnabled()) {
-                    return VoxelShapes.empty();
-                }
-
-                int enchantmentLevel = EnchantmentHelper.getEquipmentLevel(PassableLeavesEnchantments.LEAF_WALKER, (LivingEntity) entity);
-                if (enchantmentLevel == 0) {
-                    return VoxelShapes.empty();
+                if (PassableLeavesConfig.isEnchantmentEnabled() && !PassableLeavesConfig.isWalkOnTopOfLeavesEnabled()) {
+                    int enchantmentLevel = EnchantmentHelper.getEquipmentLevel(PassableLeavesEnchantments.LEAF_WALKER, (LivingEntity) entity);
+                    if (enchantmentLevel == 0) {
+                        return VoxelShapes.empty();
+                    }
                 }
 
                 BlockPos entityPos = entity.getBlockPos();
+
                 // check if player is already in leaves and on ground
-                if (pos.getY() <= entityPos.getY() && entityPos.getX() == pos.up().getX() && entityPos.getZ() == pos.up().getZ()) {
+                if (pos.getY() < entityPos.getY()) {
+                    if (PassableLeavesConfig.isWalkOnTopOfLeavesEnabled()) {
+                        if (!PassableLeavesConfig.isSprintOnTopOfLeavesEnabled() && entity.isSprinting()) {
+                            return VoxelShapes.empty();
+                        }
+
+                        return VoxelShapes.fullCube();
+                    }
 
                     // don't apply when the player is falling from to high
-                    if (entity.fallDistance < entity.getSafeFallDistance() || !config.isFallingEnabled()) {
+                    if (entity.fallDistance < entity.getSafeFallDistance() || !PassableLeavesConfig.isFallingEnabled()) {
                         return VoxelShapes.fullCube();
                     }
                 }
@@ -77,6 +80,6 @@ public abstract class LeavesBlockMixin {
     }
 
     public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
-        return !PassableLeaves.getConfig().isPlayerOnlyAffected();
+        return !PassableLeavesConfig.isPlayerOnlyAffected();
     }
 }

@@ -6,22 +6,15 @@ import net.minecraft.entity.player.PlayerEntity;
 
 public class PassableLeaves implements ModInitializer {
     public static final String MOD_ID = "passableleaves";
-    private static PassableLeavesConfig config;
 
     @Override
     public void onInitialize() {
-        config = new PassableLeavesConfig();
-        config.load();
+       new PassableLeavesConfig().load();
 
-        new PassableLeavesEnchantments();
+        PassableLeavesEnchantments.initialize();
     }
-
-    public static PassableLeavesConfig getConfig() {
-        return config;
-    }
-
+    
     public static boolean isFlyingInCreative(PlayerEntity playerEntity) {
-        return
-                playerEntity.getAbilities().creativeMode && playerEntity.getAbilities().flying;
+        return playerEntity.getAbilities().creativeMode && playerEntity.getAbilities().flying;
     }
 }

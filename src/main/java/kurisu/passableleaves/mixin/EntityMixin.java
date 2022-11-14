@@ -37,17 +37,15 @@ public abstract class EntityMixin implements EntityAccess {
 
     private boolean isInsideLeaves;
 
-    private PassableLeavesConfig config = PassableLeaves.getConfig();
-
     public boolean getIsInsideLeaves() {
         return this.isInsideLeaves;
     }
 
     @Inject(method = "baseTick", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/Entity;inPowderSnow:Z"))
-    private void passableleaves_baseTick(CallbackInfo ci) {
+    private void passableLeaves_baseTick(CallbackInfo ci) {
 
         BlockPos leafBlockPos = this.getLeafPositionEntityIsInside();
-        this.isInsideLeaves = leafBlockPos != null ? true : false;
+        this.isInsideLeaves = leafBlockPos != null;
 
         if (this.isInsideLeaves) {
             this.handleInsideLeaves(leafBlockPos);
@@ -55,8 +53,8 @@ public abstract class EntityMixin implements EntityAccess {
     }
 
     @Inject(method = "playStepSound", at = @At("TAIL"))
-    private void passableleaves_playLeafStepSound(CallbackInfo ci) {
-        if (this.isInsideLeaves && config.isSoundEnabled()) {
+    private void passableLeaves_playLeafStepSound(CallbackInfo ci) {
+        if (this.isInsideLeaves && PassableLeavesConfig.isSoundEnabled()) {
             BlockSoundGroup soundGroup = BlockSoundGroup.AZALEA_LEAVES;
             this.playSound(soundGroup.getBreakSound(), soundGroup.getVolume() * 0.6F,
                     soundGroup.getPitch());
@@ -79,7 +77,7 @@ public abstract class EntityMixin implements EntityAccess {
             }
         }
 
-        if (config.isFallingEnabled()) {
+        if (PassableLeavesConfig.isFallingEnabled()) {
             BlockState leafBlockState = this.world.getBlockState(blockPos);
             this.fallingOnLeaves(leafBlockState, this.world, ((Entity) (Object) this));
         }
@@ -88,7 +86,7 @@ public abstract class EntityMixin implements EntityAccess {
     private void fallingOnLeaves(BlockState blockState, World world, Entity entity) {
         if (!entity.isOnGround()) {
             if (entity.fallDistance > entity.getSafeFallDistance()) {
-                if (config.isSoundEnabled()) {
+                if (PassableLeavesConfig.isSoundEnabled()) {
                     BlockSoundGroup soundGroup = BlockSoundGroup.AZALEA_LEAVES;
                     entity.playSound(soundGroup.getBreakSound(),
                             Math.min(soundGroup.getVolume() + 0.5F, soundGroup.getVolume() + entity.fallDistance - entity.getSafeFallDistance()),
@@ -96,12 +94,12 @@ public abstract class EntityMixin implements EntityAccess {
                 }
 
 
-                Vec3d slowDownedVelocity = entity.getVelocity().multiply(config.getFallingSpeedReductionMultiplicator());
+                Vec3d slowDownedVelocity = entity.getVelocity().multiply(PassableLeavesConfig.getFallingSpeedReductionMultiplier());
                 entity.setVelocity(slowDownedVelocity);
 
                 // spawn fancy particle
-                if (!world.isClient && config.isParticlesEnabled()) {
-                    int particleCount = (int) MathHelper.ceil(entity.fallDistance - entity.getSafeFallDistance()) * 100;
+                if (!world.isClient && PassableLeavesConfig.isParticlesEnabled()) {
+                    int particleCount = MathHelper.ceil(entity.fallDistance - entity.getSafeFallDistance()) * 100;
 
 
                     ((ServerWorld) world).spawnParticles(new BlockStateParticleEffect(ParticleTypes.BLOCK, blockState),
@@ -109,7 +107,7 @@ public abstract class EntityMixin implements EntityAccess {
                             0.0, 0.0, 0.0, 0.15000000596046448);
                 }
 
-                entity.fallDistance = entity.fallDistance * config.getFallingDistanceReductionMultiplicator();
+                entity.fallDistance = entity.fallDistance * PassableLeavesConfig.getFallingDistanceReductionMultiplier();
                 entity.handleFallDamage(entity.fallDistance, 1.0F, DamageSource.FALL);
             }
         }

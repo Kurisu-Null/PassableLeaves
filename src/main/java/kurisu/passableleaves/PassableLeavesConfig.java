@@ -1,12 +1,13 @@
 package kurisu.passableleaves;
 
+import lombok.Getter;
 import me.lortseam.completeconfig.api.ConfigContainer;
 import me.lortseam.completeconfig.api.ConfigEntries;
 import me.lortseam.completeconfig.api.ConfigEntry;
+import me.lortseam.completeconfig.data.Config;
 
-@ConfigContainer.Transitive
 @ConfigEntries(includeAll = true)
-public class PassableLeavesConfig extends me.lortseam.completeconfig.data.Config implements ConfigContainer {
+public final class PassableLeavesConfig extends Config implements ConfigContainer {
 
     public PassableLeavesConfig() {
         super(PassableLeaves.MOD_ID);
@@ -14,56 +15,40 @@ public class PassableLeavesConfig extends me.lortseam.completeconfig.data.Config
 
     @ConfigEntry.BoundedFloat(min = 0.0F, max = 1.0F)
     @ConfigEntry.Slider
-    private float fallingDistanceReductionMultiplicator = 0.5F;
+    @Getter
+    private static float fallingDistanceReductionMultiplier = 0.5F;
+
     @ConfigEntry.BoundedFloat(min = 0.0F, max = 1.0F)
     @ConfigEntry.Slider
-    private float fallingSpeedReductionMultiplicator = 0.5F;
+    @Getter
+    private static float fallingSpeedReductionMultiplier = 0.5F;
 
     @ConfigEntry.BoundedFloat(min = -1.0F, max = 1.0F)
     @ConfigEntry.Slider
-    private float slowMultiplicator = -0.2F;
-    private boolean fallingEnabled = true;
-    private boolean slowEnabled = true;
-    private boolean soundEnabled = true;
+    @Getter
+    private static float slowMultiplier = -0.2F;
 
-    private boolean enchantmentEnabled = true;
-    private boolean particlesEnabled = true;
+    @Getter
+    private static boolean fallingEnabled = true;
 
-    private boolean playerOnlyAffected = false;
+    @Getter
+    private static boolean slowEnabled = true;
 
-    public float getFallingDistanceReductionMultiplicator() {
-        return fallingDistanceReductionMultiplicator;
-    }
+    @Getter
+    private static boolean soundEnabled = true;
 
-    public float getFallingSpeedReductionMultiplicator() {
-        return fallingSpeedReductionMultiplicator;
-    }
+    @Getter
+    private static boolean enchantmentEnabled = true;
 
-    public float getSlowMultiplicator() {
-        return slowMultiplicator;
-    }
+    @Getter
+    private static boolean particlesEnabled = true;
 
-    public boolean isSlowEnabled() {
-        return slowEnabled;
-    }
+    @Getter
+    private static boolean playerOnlyAffected = false;
 
-    public boolean isSoundEnabled() {
-        return soundEnabled;
-    }
+    @Getter
+    private static boolean walkOnTopOfLeavesEnabled = false;
 
-    public boolean isEnchantmentEnabled() {
-        return enchantmentEnabled;
-    }
-
-    public boolean isFallingEnabled() {
-        return fallingEnabled;
-    }
-
-    public boolean isParticlesEnabled() {
-        return particlesEnabled;
-    }
-
-    public boolean isPlayerOnlyAffected() {
-        return playerOnlyAffected;
-    }
+    @Getter
+    private static boolean sprintOnTopOfLeavesEnabled = false;
 }
