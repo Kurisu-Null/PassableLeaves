@@ -3,6 +3,34 @@ Changelog of Passable Leaves.
 ## Unreleased
 ### No issue
 
+**feat: #1 configurable walking & running on leaves, refactoring**
+
+
+[dc4bf76debd1219](https://github.com/Kurisu-Null/PassableLeaves/commit/dc4bf76debd1219) Kurisu *2022-11-14 20:05:07*
+
+
+## 1.2.0
+### No issue
+
+**fix: upload remapJar instead of jar**
+
+
+[4d6536c01d104b3](https://github.com/Kurisu-Null/PassableLeaves/commit/4d6536c01d104b3) Kurisu *2022-11-13 22:51:19*
+
+**fix: upload remapJar instead of jar**
+
+
+[ae4b02f637c9ec3](https://github.com/Kurisu-Null/PassableLeaves/commit/ae4b02f637c9ec3) Kurisu *2022-11-13 22:48:08*
+
+**1.1.0**
+
+
+[50081e6bca4a43b](https://github.com/Kurisu-Null/PassableLeaves/commit/50081e6bca4a43b) Kurisu *2022-11-13 22:21:06*
+
+
+## 1.1.0
+### No issue
+
 **fix: correct depends in fabric mod declaration**
 
 
@@ -17,6 +45,10 @@ Changelog of Passable Leaves.
 
 
 [9b57b6270f606ab](https://github.com/Kurisu-Null/PassableLeaves/commit/9b57b6270f606ab) Kurisu *2022-11-13 19:49:40*
+
+
+## 1.18.2-1.10
+### No issue
 
 **feat: add gradle tasks for curseforge and modrinth, split properties for secrets**
 
