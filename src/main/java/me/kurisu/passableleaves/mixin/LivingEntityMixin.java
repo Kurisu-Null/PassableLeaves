@@ -1,10 +1,12 @@
-package kurisu.passableleaves.mixin;
+package me.kurisu.passableleaves.mixin;
 
-import kurisu.passableleaves.PassableLeaves;
-import kurisu.passableleaves.PassableLeavesConfig;
-import kurisu.passableleaves.access.EntityAccess;
+import me.kurisu.passableleaves.PassableLeaves;
+import me.kurisu.passableleaves.access.EntityAccess;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.*;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -25,7 +27,7 @@ public abstract class LivingEntityMixin {
 
     @Inject(method = "tickMovement", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;addPowderSnowSlowIfNeeded()V"))
     public void passableleaves_tickMovement(CallbackInfo ci) {
-        if (PassableLeavesConfig.isSlowEnabled()) {
+        if (PassableLeaves.CONFIG.slowEnabled()) {
             this.removeLeavesSlow();
             this.addLeavesSlowIfNeeded();
         }
@@ -58,7 +60,7 @@ public abstract class LivingEntityMixin {
                 return;
             }
 
-            float slowEffect = PassableLeavesConfig.getSlowMultiplier();
+            float slowEffect = PassableLeaves.CONFIG.slowMultiplier();
             entityAttributeInstance.addTemporaryModifier(
                     new EntityAttributeModifier(LEAVES_SLOW_ID, "Leaves slow", slowEffect,
                             EntityAttributeModifier.Operation.MULTIPLY_TOTAL));

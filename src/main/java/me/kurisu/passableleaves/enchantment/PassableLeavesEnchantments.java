@@ -1,7 +1,6 @@
-package kurisu.passableleaves.enchantment;
+package me.kurisu.passableleaves.enchantment;
 
-import kurisu.passableleaves.PassableLeaves;
-import kurisu.passableleaves.PassableLeavesConfig;
+import me.kurisu.passableleaves.PassableLeaves;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -10,7 +9,7 @@ public class PassableLeavesEnchantments {
     public static Enchantment LEAF_WALKER;
 
     public static void initialize() {
-        if (PassableLeavesConfig.isEnchantmentEnabled()) {
+        if (PassableLeaves.CONFIG.enchantmentEnabled()) {
             LEAF_WALKER = new LeafWalkerEnchantment();
         }
     }

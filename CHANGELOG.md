@@ -3,6 +3,16 @@ Changelog of Passable Leaves.
 ## Unreleased
 ### No issue
 
+**refactoring: switching to owo-lib -> issues with completeconfig, refactoring logic**
+
+
+[767ee9887192941](https://github.com/Kurisu-Null/PassableLeaves/commit/767ee9887192941) Kurisu *2022-11-15 02:18:29*
+
+**fix: update version**
+
+
+[350f403c580d8b2](https://github.com/Kurisu-Null/PassableLeaves/commit/350f403c580d8b2) Kurisu *2022-11-14 20:08:58*
+
 **feat: #1 configurable walking & running on leaves, refactoring**
 
 

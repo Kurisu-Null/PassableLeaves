@@ -1,7 +1,6 @@
-package kurisu.passableleaves.mixin;
+package me.kurisu.passableleaves.mixin;
 
-import kurisu.passableleaves.PassableLeaves;
-import kurisu.passableleaves.PassableLeavesConfig;
+import me.kurisu.passableleaves.PassableLeaves;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -15,7 +14,7 @@ public abstract class PathNodeTypeMixin {
     @ModifyConstant(method = "<clinit>", slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=LEAVES")),
             constant = @Constant(floatValue = -1.0F))
     private static float passableLeaves_setDefaultPenaltyOfLeaves(float defaultPenalty) {
-        if (PassableLeavesConfig.isPlayerOnlyAffected()) {
+        if (PassableLeaves.CONFIG.playerOnlyAffected()) {
             return defaultPenalty;
         }
         return 1.0F;

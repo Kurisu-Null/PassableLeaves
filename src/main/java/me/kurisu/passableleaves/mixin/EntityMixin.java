@@ -1,8 +1,7 @@
-package kurisu.passableleaves.mixin;
+package me.kurisu.passableleaves.mixin;
 
-import kurisu.passableleaves.PassableLeaves;
-import kurisu.passableleaves.PassableLeavesConfig;
-import kurisu.passableleaves.access.EntityAccess;
+import me.kurisu.passableleaves.PassableLeaves;
+import me.kurisu.passableleaves.access.EntityAccess;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSource;
@@ -54,7 +53,7 @@ public abstract class EntityMixin implements EntityAccess {
 
     @Inject(method = "playStepSound", at = @At("TAIL"))
     private void passableLeaves_playLeafStepSound(CallbackInfo ci) {
-        if (this.isInsideLeaves && PassableLeavesConfig.isSoundEnabled()) {
+        if (this.isInsideLeaves && PassableLeaves.CONFIG.soundEnabled()) {
             BlockSoundGroup soundGroup = BlockSoundGroup.AZALEA_LEAVES;
             this.playSound(soundGroup.getBreakSound(), soundGroup.getVolume() * 0.6F,
                     soundGroup.getPitch());
@@ -77,7 +76,7 @@ public abstract class EntityMixin implements EntityAccess {
             }
         }
 
-        if (PassableLeavesConfig.isFallingEnabled()) {
+        if (PassableLeaves.CONFIG.fallingEnabled()) {
             BlockState leafBlockState = this.world.getBlockState(blockPos);
             this.fallingOnLeaves(leafBlockState, this.world, ((Entity) (Object) this));
         }
@@ -86,7 +85,7 @@ public abstract class EntityMixin implements EntityAccess {
     private void fallingOnLeaves(BlockState blockState, World world, Entity entity) {
         if (!entity.isOnGround()) {
             if (entity.fallDistance > entity.getSafeFallDistance()) {
-                if (PassableLeavesConfig.isSoundEnabled()) {
+                if (PassableLeaves.CONFIG.soundEnabled()) {
                     BlockSoundGroup soundGroup = BlockSoundGroup.AZALEA_LEAVES;
                     entity.playSound(soundGroup.getBreakSound(),
                             Math.min(soundGroup.getVolume() + 0.5F, soundGroup.getVolume() + entity.fallDistance - entity.getSafeFallDistance()),
@@ -94,11 +93,11 @@ public abstract class EntityMixin implements EntityAccess {
                 }
 
 
-                Vec3d slowDownedVelocity = entity.getVelocity().multiply(PassableLeavesConfig.getFallingSpeedReductionMultiplier());
+                Vec3d slowDownedVelocity = entity.getVelocity().multiply(PassableLeaves.CONFIG.fallingSpeedReductionMultiplier());
                 entity.setVelocity(slowDownedVelocity);
 
                 // spawn fancy particle
-                if (!world.isClient && PassableLeavesConfig.isParticlesEnabled()) {
+                if (!world.isClient && PassableLeaves.CONFIG.particlesEnabled()) {
                     int particleCount = MathHelper.ceil(entity.fallDistance - entity.getSafeFallDistance()) * 100;
 
 
@@ -107,7 +106,7 @@ public abstract class EntityMixin implements EntityAccess {
                             0.0, 0.0, 0.0, 0.15000000596046448);
                 }
 
-                entity.fallDistance = entity.fallDistance * PassableLeavesConfig.getFallingDistanceReductionMultiplier();
+                entity.fallDistance = entity.fallDistance * PassableLeaves.CONFIG.fallingDistanceReductionMultiplier();
                 entity.handleFallDamage(entity.fallDistance, 1.0F, DamageSource.FALL);
             }
         }

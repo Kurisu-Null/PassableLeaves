@@ -1,7 +1,6 @@
-package kurisu.passableleaves.mixin;
+package me.kurisu.passableleaves.mixin;
 
-import kurisu.passableleaves.PassableLeaves;
-import kurisu.passableleaves.PassableLeavesConfig;
+import me.kurisu.passableleaves.PassableLeaves;
 import net.minecraft.entity.ai.pathing.LandPathNodeMaker;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.util.math.BlockPos;
@@ -16,7 +15,7 @@ public class LandPathNodeMakerMixin {
 
     @Inject(method = "adjustNodeType", at = @At("HEAD"), cancellable = true)
     private void passableLeaves_adjustNodeType_changeLeavesToOpen(BlockView world, boolean canOpenDoors, boolean canEnterOpenDoors, BlockPos pos, PathNodeType type, CallbackInfoReturnable<PathNodeType> cir) {
-        if (type == PathNodeType.LEAVES && !PassableLeavesConfig.isPlayerOnlyAffected()) {
+        if (type == PathNodeType.LEAVES && !PassableLeaves.CONFIG.playerOnlyAffected()) {
             cir.setReturnValue(PathNodeType.LEAVES);
         }
     }

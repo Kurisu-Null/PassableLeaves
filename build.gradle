@@ -1,5 +1,4 @@
 plugins {
-    id "io.freefair.lombok" version "6.5.1"
     id 'fabric-loom' version '1.0-SNAPSHOT'
     id 'maven-publish'
     id "com.modrinth.minotaur" version "2.+"
@@ -19,19 +18,14 @@ repositories {
     // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
     // See https://docs.gradle.org/current/userguide/declaring_repositories.html
     // for more information about repositories.
-    maven {
-        name "Jitpack"
-        url 'https://jitpack.io'
-    }
-    maven {
-        url "https://maven.terraformersmc.com/"
-    }
-    maven {
-        url "https://maven.shedaniel.me/"
-    }
+    maven { url 'https://maven.wispforest.io' }
     maven {
         name "Siphalor's Maven"
         url "https://maven.siphalor.de"
+    }
+    maven {
+        name "Jitpack"
+        url "https://jitpack.io"
     }
 }
 
@@ -43,8 +37,14 @@ dependencies {
 
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-    modImplementation("com.gitlab.Lortseam.completeconfig:base:${project.completeConfig_version}")
-    modImplementation("com.gitlab.Lortseam.completeconfig:gui-coat:${project.completeConfig_version}")
+
+    modImplementation "io.wispforest:owo-lib:${project.owo_version}"
+    annotationProcessor "io.wispforest:owo-lib:${project.owo_version}"
+
+    // include this if you don't want force your users to install owo
+    // sentinel will warn them and give the option to download it automatically
+    include "io.wispforest:owo-sentinel:${project.owo_version}"
+
     modImplementation "de.siphalor:${project.nbtcrafting_version}"
 }
 
@@ -122,7 +122,7 @@ modrinth {
     loaders = ["fabric"]
     dependencies {
         required.project "fabric-api"
-        required.project "completeconfig"
+        required.project "owo-lib"
         optional.project "nbt-crafting"
     }
     syncBodyFrom = rootProject.file("README.md").text
@@ -142,10 +142,9 @@ curseforge {
             displayName = "Passable Leaves $project.version"
             relations {
                 requiredDependency 'fabric-api'
-                requiredDependency 'completeconfig'
+                requiredDependency 'owo-lib'
                 optionalDependency 'nbt-crafting'
             }
         }
     }
 }
-

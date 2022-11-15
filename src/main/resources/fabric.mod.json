@@ -14,21 +14,21 @@
   "icon": "assets/passableleaves/icon.png",
   "environment": "*",
   "entrypoints": {
-    "main": [
-      "kurisu.passableleaves.PassableLeaves"
-    ],
     "client": [
-      "kurisu.passableleaves.PassableLeavesClient"
+      "me.kurisu.passableleaves.client.PassableleavesClient"
+    ],
+    "main": [
+      "me.kurisu.passableleaves.PassableLeaves"
     ]
   },
   "mixins": [
-    "passableLeaves.mixins.json"
+    "passableleaves.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.14.10",
     "fabric": "*",
     "minecraft": "1.19.2",
-    "completeconfig": "^2.0.0"
+    "owo-lib": "^0.8.1"
   },
   "recommends": {
     "nbtcrafting": "^2.0.0"

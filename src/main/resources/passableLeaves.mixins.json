@@ -1,9 +1,10 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "kurisu.passableleaves.mixin",
+  "package": "me.kurisu.passableleaves.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "AbstractBlockStateMixin",
     "PathNodeTypeMixin",
     "LandPathNodeMakerMixin",
     "EntityMixin",
