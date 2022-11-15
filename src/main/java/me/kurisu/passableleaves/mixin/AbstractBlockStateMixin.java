@@ -2,13 +2,11 @@ package me.kurisu.passableleaves.mixin;
 
 import me.kurisu.passableleaves.PassableLeaves;
 import me.kurisu.passableleaves.enchantment.PassableLeavesEnchantments;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.EntityShapeContext;
-import net.minecraft.block.ShapeContext;
+import net.minecraft.block.*;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.TagKey;
@@ -76,6 +74,20 @@ public abstract class AbstractBlockStateMixin {
                     }
                 }
             }
+        }
+    }
+
+    @Inject(method = "getAmbientOcclusionLightLevel", at = @At("HEAD"), cancellable = true)
+    private void passableLeaves_adaptOcclusionLightLevel(BlockView world, BlockPos pos, CallbackInfoReturnable<Float> cir) {
+        if (this.isIn(BlockTags.LEAVES)) {
+            cir.setReturnValue(0.2F);
+        }
+    }
+
+    @Inject(method = "canPathfindThrough", at = @At("HEAD"), cancellable = true)
+    private void canPathfindThrough(BlockView world, BlockPos pos, NavigationType type, CallbackInfoReturnable<Boolean> cir) {
+        if (this.isIn(BlockTags.LEAVES)) {
+            cir.setReturnValue(!PassableLeaves.CONFIG.playerOnlyAffected());
         }
     }
 }
