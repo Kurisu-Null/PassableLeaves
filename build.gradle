@@ -123,7 +123,7 @@ modrinth {
     dependencies {
         required.project "fabric-api"
         required.project "completeconfig"
-        required.project "cloth-config"
+        optional.project "cloth-config"
         optional.project "nbt-crafting"
     }
     syncBodyFrom = rootProject.file("README.md").text
@@ -147,7 +147,7 @@ curseforge {
             relations {
                 requiredDependency 'fabric-api'
                 requiredDependency 'completeconfig'
-                requiredDependency 'cloth-config'
+                optionalDependency 'cloth-config'
                 optionalDependency 'nbt-crafting'
             }
         }
