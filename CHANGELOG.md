@@ -3,6 +3,16 @@ Changelog of Passable Leaves.
 ## Unreleased
 ### No issue
 
+**version bump**
+
+
+[897728e52948d68](https://github.com/Kurisu-Null/PassableLeaves/commit/897728e52948d68) Kurisu *2022-11-15 21:02:16*
+
+**fix: cloth-config dep**
+
+
+[66ce1f587843561](https://github.com/Kurisu-Null/PassableLeaves/commit/66ce1f587843561) Kurisu *2022-11-15 21:01:45*
+
 **fix: cloth-config dep & crash, project structure**
 
 

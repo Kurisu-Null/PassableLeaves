@@ -8,7 +8,7 @@ It does what it says, lets you run through leaves. But wait there is more
 - mobs will path through leaves
 - there is even an enchantment named _**Leaf Walker**_ so that you can walk on them!
 - all of the above configurable
-- supports Mod Menu with Cloth-Config for configuration
+- supports Mod Menu for configuration [1.18.2 with cloth config]
 
 ### Configurable
 - Falling distance reduction multiplier
