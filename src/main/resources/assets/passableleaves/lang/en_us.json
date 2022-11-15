@@ -11,5 +11,7 @@
   "config.passableleaves.particlesEnabled": "Enable particles",
   "config.passableleaves.playerOnlyAffected": "Player only affected",
   "config.passableleaves.walkOnTopOfLeavesEnabled": "Walk on leaves without enchantment",
-  "config.passableleaves.sprintOnTopOfLeavesEnabled": "Sprint on leaves without enchantment"
+  "config.passableleaves.sprintOnTopOfLeavesEnabled": "Sprint on leaves without enchantment",
+  "config.passableleaves.option.fallWhenSneakingEnabled": "Fall through leaves when sneaking"
+
 }

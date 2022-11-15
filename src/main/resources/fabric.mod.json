@@ -15,10 +15,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "kurisu.passableleaves.PassableLeaves"
+      "me.kurisu.passableleaves.PassableLeaves"
     ],
     "client": [
-      "kurisu.passableleaves.PassableLeavesClient"
+      "me.kurisu.passableleaves.PassableLeavesClient"
     ]
   },
   "mixins": [
@@ -31,6 +31,6 @@
     "completeconfig": "^1.4.1"
   },
   "recommends": {
-    "nbtcrafting": "^2.2.2"
+    "nbtcrafting": "^2.0.0"
   }
 }

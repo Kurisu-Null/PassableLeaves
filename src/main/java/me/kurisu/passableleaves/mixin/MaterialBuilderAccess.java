@@ -1,4 +1,4 @@
-package kurisu.passableleaves.mixin;
+package me.kurisu.passableleaves.mixin;
 
 import net.minecraft.block.Material;
 import org.spongepowered.asm.mixin.Mixin;

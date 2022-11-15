@@ -1,6 +1,5 @@
-package kurisu.passableleaves;
+package me.kurisu.passableleaves;
 
-import kurisu.passableleaves.enchantment.PassableLeavesEnchantments;
 import me.lortseam.completeconfig.gui.ConfigScreenBuilder;
 import me.lortseam.completeconfig.gui.cloth.ClothConfigScreenBuilder;
 import net.fabricmc.api.ClientModInitializer;

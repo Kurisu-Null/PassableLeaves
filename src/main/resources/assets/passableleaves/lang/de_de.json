@@ -11,5 +11,6 @@
   "config.passableleaves.particlesEnabled": "Partikel aktiviert",
   "config.passableleaves.playerOnlyAffected": "Wende nur an spielern an",
   "config.passableleaves.walkOnTopOfLeavesEnabled": "Laufe auf Blätter ohne verzauberung",
-  "config.passableleaves.sprintOnTopOfLeavesEnabled": "Sprinte auf Blätter ohne verzauberung"
+  "config.passableleaves.sprintOnTopOfLeavesEnabled": "Sprinte auf Blätter ohne verzauberung",
+  "config.passableleaves.fallWhenSneakingEnabled": "Falle beim schleichen durch die Blätter"
 }

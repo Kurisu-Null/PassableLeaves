@@ -115,6 +115,7 @@ modrinth {
     token = localProperties["modrinth_token"]
     projectId = project.modrinth_project_id
     versionNumber = project.version
+    changelog = file("CHANGELOG.md").getText("UTF-8")
     versionType = "release"
     uploadFile = remapJar
     gameVersions = [project.minecraft_version]
@@ -129,8 +130,9 @@ modrinth {
 
 tasks.modrinth.dependsOn(tasks.modrinthSyncBody, tasks.gitChangelogTask)
 
-curseforge {curseforge_project_id
-    apiKey =localProperties["curseforge_token"]
+curseforge {
+    curseforge_project_id
+    apiKey = localProperties["curseforge_token"]
     project {
         id = project.curseforge_project_id
         changelog = file("CHANGELOG.md")

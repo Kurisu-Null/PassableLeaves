@@ -1,6 +1,6 @@
-package kurisu.passableleaves;
+package me.kurisu.passableleaves;
 
-import kurisu.passableleaves.enchantment.PassableLeavesEnchantments;
+import me.kurisu.passableleaves.enchantment.PassableLeavesEnchantments;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.entity.player.PlayerEntity;
 
@@ -9,11 +9,10 @@ public class PassableLeaves implements ModInitializer {
 
     @Override
     public void onInitialize() {
-       new PassableLeavesConfig().load();
-
+        new PassableLeavesConfig().load();
         PassableLeavesEnchantments.initialize();
     }
-    
+
     public static boolean isFlyingInCreative(PlayerEntity playerEntity) {
         return playerEntity.getAbilities().creativeMode && playerEntity.getAbilities().flying;
     }

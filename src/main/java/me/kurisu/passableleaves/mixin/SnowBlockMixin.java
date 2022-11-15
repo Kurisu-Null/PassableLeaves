@@ -1,4 +1,4 @@
-package kurisu.passableleaves.mixin;
+package me.kurisu.passableleaves.mixin;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SnowBlock;
