@@ -36,6 +36,7 @@ public abstract class EntityMixin implements EntityAccess {
     public abstract Box getBoundingBox();
 
     private boolean isInsideLeaves;
+    private BlockState lastLeafFalledOn;
 
     public boolean getIsInsideLeaves() {
         return this.isInsideLeaves;
@@ -84,32 +85,40 @@ public abstract class EntityMixin implements EntityAccess {
     }
 
     private void fallingOnLeaves(BlockState blockState, World world, Entity entity) {
-        if (!entity.isOnGround()) {
-            if (entity.fallDistance > entity.getSafeFallDistance()) {
-                if (PassableLeavesConfig.soundEnabled) {
-                    BlockSoundGroup soundGroup = BlockSoundGroup.AZALEA_LEAVES;
-                    entity.playSound(soundGroup.getBreakSound(),
-                            Math.min(soundGroup.getVolume() + 0.5F, soundGroup.getVolume() + entity.fallDistance - entity.getSafeFallDistance()),
-                            soundGroup.getPitch() * 0.7F);
-                }
+        if (entity.isOnGround()) {
+            this.lastLeafFalledOn = null;
+            return;
+        }
 
+        // dont apply same effect on same leaf
+        if (blockState.equals(this.lastLeafFalledOn)) {
+            return;
+        }
 
-                Vec3d slowDownedVelocity = entity.getVelocity().multiply(PassableLeavesConfig.fallingSpeedReductionMultiplier);
-                entity.setVelocity(slowDownedVelocity);
-
-                // spawn fancy particle
-                if (!world.isClient && PassableLeavesConfig.particlesEnabled) {
-                    int particleCount = MathHelper.ceil(entity.fallDistance - entity.getSafeFallDistance()) * 100;
-
-
-                    ((ServerWorld) world).spawnParticles(new BlockStateParticleEffect(ParticleTypes.BLOCK, blockState),
-                            entity.getX(), entity.getY(), entity.getZ(), particleCount,
-                            0.0, 0.0, 0.0, 0.15000000596046448);
-                }
-
-                entity.fallDistance = entity.fallDistance * PassableLeavesConfig.fallingDistanceReductionMultiplier;
-                entity.handleFallDamage(entity.fallDistance, 1.0F, DamageSource.FALL);
+        if (entity.fallDistance > entity.getSafeFallDistance()) {
+            lastLeafFalledOn = blockState;
+            if (PassableLeavesConfig.soundEnabled) {
+                BlockSoundGroup soundGroup = BlockSoundGroup.AZALEA_LEAVES;
+                entity.playSound(soundGroup.getBreakSound(),
+                        Math.min(soundGroup.getVolume() + 0.5F, soundGroup.getVolume() + entity.fallDistance - entity.getSafeFallDistance()),
+                        soundGroup.getPitch() * 0.7F);
             }
+
+            Vec3d slowDownedVelocity = entity.getVelocity().multiply(PassableLeavesConfig.fallingSpeedReductionMultiplier);
+            entity.setVelocity(slowDownedVelocity);
+
+            // spawn fancy particle
+            if (!world.isClient && PassableLeavesConfig.particlesEnabled) {
+                int particleCount = MathHelper.ceil(entity.fallDistance - entity.getSafeFallDistance()) * 100;
+
+
+                ((ServerWorld) world).spawnParticles(new BlockStateParticleEffect(ParticleTypes.BLOCK, blockState),
+                        entity.getX(), entity.getY(), entity.getZ(), particleCount,
+                        0.0, 0.0, 0.0, 0.15000000596046448);
+            }
+
+            entity.fallDistance = entity.fallDistance * PassableLeavesConfig.fallingDistanceReductionMultiplier;
+            entity.handleFallDamage(entity.fallDistance, 1.0F, DamageSource.FALL);
         }
     }
 }
