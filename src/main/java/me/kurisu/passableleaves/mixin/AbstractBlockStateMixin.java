@@ -47,28 +47,25 @@ public abstract class AbstractBlockStateMixin {
                         return;
                     }
 
-                    if (PassableLeaves.CONFIG.enchantmentEnabled() && !PassableLeaves.CONFIG.walkOnTopOfLeavesEnabled()) {
-                        int enchantmentLevel = EnchantmentHelper.getEquipmentLevel(PassableLeavesEnchantments.LEAF_WALKER, (LivingEntity) entity);
-                        if (enchantmentLevel == 0) {
-                            return;
-                        }
-                    }
-
                     BlockPos entityPos = entity.getBlockPos();
-
-                    // check if player is already in leaves and on ground
+                    // check if leaf is below player
                     if (pos.getY() < entityPos.getY()) {
-                        if (PassableLeaves.CONFIG.walkOnTopOfLeavesEnabled()) {
-                            if (!PassableLeaves.CONFIG.sprintOnTopOfLeavesEnabled() && entity.isSprinting()) {
-                                return;
-                            }
-
-                            cir.setReturnValue(VoxelShapes.fullCube());
-                            return;
-                        }
-
                         // don't apply when the player is falling from to high
                         if (entity.fallDistance < entity.getSafeFallDistance() || !PassableLeaves.CONFIG.fallingEnabled()) {
+                            if (PassableLeaves.CONFIG.enchantmentEnabled()) {
+                                int enchantmentLevel = EnchantmentHelper.getEquipmentLevel(PassableLeavesEnchantments.LEAF_WALKER, (LivingEntity) entity);
+                                if (enchantmentLevel > 0) {
+                                    cir.setReturnValue(VoxelShapes.fullCube());
+                                    return;
+                                }
+                            }
+
+                            if (PassableLeaves.CONFIG.walkOnTopOfLeavesEnabled()) {
+                                if (!PassableLeaves.CONFIG.sprintOnTopOfLeavesEnabled() && entity.isSprinting()) {
+                                    return;
+                                }
+                            }
+
                             cir.setReturnValue(VoxelShapes.fullCube());
                         }
                     }

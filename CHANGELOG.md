@@ -3,10 +3,25 @@ Changelog of Passable Leaves.
 ## Unreleased
 ### No issue
 
+**feat: dont apply same effects on same leaf when falling**
+
+
+[d8c8da52c947fcb](https://github.com/Kurisu-Null/PassableLeaves/commit/d8c8da52c947fcb) Kurisu *2022-11-20 16:46:40*
+
+**fix: reference to passableleaves mixin**
+
+
+[d9d912c650d6020](https://github.com/Kurisu-Null/PassableLeaves/commit/d9d912c650d6020) Kurisu *2022-11-15 19:18:31*
+
+**refactoring: move leavesblock logic to abstractBlockState**
+
+
+[877d0d71316e60e](https://github.com/Kurisu-Null/PassableLeaves/commit/877d0d71316e60e) Kurisu *2022-11-15 19:08:53*
+
 **refactoring: switching to owo-lib -> issues with completeconfig, refactoring logic**
 
 
-[767ee9887192941](https://github.com/Kurisu-Null/PassableLeaves/commit/767ee9887192941) Kurisu *2022-11-15 02:18:29*
+[b104882dee1028b](https://github.com/Kurisu-Null/PassableLeaves/commit/b104882dee1028b) Kurisu *2022-11-15 02:20:14*
 
 **fix: update version**
 
