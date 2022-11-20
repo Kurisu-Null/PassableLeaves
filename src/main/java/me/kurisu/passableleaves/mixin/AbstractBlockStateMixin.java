@@ -64,9 +64,8 @@ public abstract class AbstractBlockStateMixin {
                                 if (!PassableLeaves.CONFIG.sprintOnTopOfLeavesEnabled() && entity.isSprinting()) {
                                     return;
                                 }
+                                cir.setReturnValue(VoxelShapes.fullCube());
                             }
-
-                            cir.setReturnValue(VoxelShapes.fullCube());
                         }
                     }
                 }
