@@ -2,7 +2,7 @@ package me.kurisu.passableleaves.mixin;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SnowBlock;
-import net.minecraft.tag.BlockTags;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldView;
 import org.spongepowered.asm.mixin.Mixin;
