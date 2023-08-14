@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class LandPathNodeMakerMixin {
 
     @Inject(method = "adjustNodeType", at = @At("HEAD"), cancellable = true)
-    private void passableLeaves_adjustNodeType_changeLeavesToOpen(BlockView world, boolean canOpenDoors, boolean canEnterOpenDoors, BlockPos pos, PathNodeType type, CallbackInfoReturnable<PathNodeType> cir) {
+    private void passableLeaves_adjustNodeType_changeLeavesToOpen(BlockView world, BlockPos pos, PathNodeType type, CallbackInfoReturnable<PathNodeType> cir) {
         if (type == PathNodeType.LEAVES && !PassableLeaves.CONFIG.playerOnlyAffected()) {
             cir.setReturnValue(PathNodeType.LEAVES);
         }

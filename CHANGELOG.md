@@ -3,6 +3,21 @@ Changelog of Passable Leaves.
 ## Unreleased
 ### No issue
 
+**fix: expected normal behaviour**
+
+
+[136403b638cc2b9](https://github.com/Kurisu-Null/PassableLeaves/commit/136403b638cc2b9) Kurisu *2022-11-20 17:21:52*
+
+**version bump**
+
+
+[10a4b243ac3474e](https://github.com/Kurisu-Null/PassableLeaves/commit/10a4b243ac3474e) Kurisu *2022-11-20 17:04:23*
+
+**feat: adapt walking without enchantment & enchantment logic**
+
+
+[57a22c15fa1a0a7](https://github.com/Kurisu-Null/PassableLeaves/commit/57a22c15fa1a0a7) Kurisu *2022-11-20 17:04:07*
+
 **feat: dont apply same effects on same leaf when falling**
 
 

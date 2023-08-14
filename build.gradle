@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.0-SNAPSHOT'
+    id 'fabric-loom' version '1.2-SNAPSHOT'
     id 'maven-publish'
     id "com.modrinth.minotaur" version "2.+"
     id "com.matthewprenger.cursegradle" version "1.4.0"
@@ -44,8 +44,6 @@ dependencies {
     // include this if you don't want force your users to install owo
     // sentinel will warn them and give the option to download it automatically
     include "io.wispforest:owo-sentinel:${project.owo_version}"
-
-    modImplementation "de.siphalor:${project.nbtcrafting_version}"
 }
 
 processResources {
@@ -105,7 +103,7 @@ publishing {
 }
 
 task gitChangelogTask(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
-    file = file("CHANGELOG.md")
+    file = new File("CHANGELOG.md")
     fromRepo = file(".")
     prependToFile = false // false will replace the file, true will prepend content
     templateContent = file('changelog.template').getText('UTF-8')

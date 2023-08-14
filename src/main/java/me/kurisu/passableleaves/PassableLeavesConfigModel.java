@@ -38,7 +38,7 @@ public class PassableLeavesConfigModel {
     public boolean sprintOnTopOfLeavesEnabled = false;
 
     @Sync(Option.SyncMode.OVERRIDE_CLIENT)
-    public boolean fallWhenSneakingEnabled = true;
+    public boolean fallWhenKeyPressEnabled = true;
 
     public boolean soundEnabled = true;
     public boolean particlesEnabled = true;
