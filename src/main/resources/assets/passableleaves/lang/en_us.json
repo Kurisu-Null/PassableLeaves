@@ -1,8 +1,8 @@
 {
   "enchantment.passableleaves.leaf_walker": "Leaf Walker",
   "enchantment.passableleaves.leaf_walker.desc": "Allows the player to walk on leaves.",
-  "text.config.passableleaves.option.fallingDistanceReductionMultiplier": "Falling distance reduction multiplier",
-  "text.config.passableleaves.option.fallingSpeedReductionMultiplier": "Falling speed reduction multiplier",
+  "text.config.passableleaves.option.fallingDistanceMultiplier": "Falling distance multiplier",
+  "text.config.passableleaves.option.fallingSpeedMultiplier": "Falling speed multiplier",
   "text.config.passableleaves.option.slowMultiplier": "Movement slow multiplier",
   "text.config.passableleaves.option.fallingEnabled": "Apply falling multiplier",
   "text.config.passableleaves.option.slowEnabled": "Apply movement slow",
@@ -10,7 +10,10 @@
   "text.config.passableleaves.option.enchantmentEnabled": "Enable enchantments",
   "text.config.passableleaves.option.particlesEnabled": "Enable particles",
   "text.config.passableleaves.option.playerOnlyAffected": "Player only affected",
-  "text.config.passableleaves.option.walkOnTopOfLeavesEnabled": "Walk on leaves without enchantment",
-  "text.config.passableleaves.option.sprintOnTopOfLeavesEnabled": "Sprint on leaves without enchantment",
-  "text.config.passableleaves.option.fallWhenSneakingEnabled": "Fall when sneaking"
+  "text.config.passableleaves.option.walkOnTopOfLeavesEnabled": "Walk on leaves",
+  "text.config.passableleaves.option.sprintOnTopOfLeavesEnabled": "Sprint on leaves",
+  "text.config.passableleaves.option.fallOnKeyPress": "Fall on defined key",
+  "text.config.passableleaves.option.disableFovChange": "Deactivate fov changes when in leaves",
+  "category.passableleaves.name": "Passable Leaves",
+  "key.passableleaves.fall_through_leaves": "Fall through leaves"
 }

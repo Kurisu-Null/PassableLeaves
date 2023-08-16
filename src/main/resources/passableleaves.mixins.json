@@ -13,7 +13,9 @@
     "MaterialBuilderAccess",
     "MaterialMixin",
     "SnowBlockMixin",
-    "VineBlockMixin"
+    "VineBlockMixin",
+    "AbstractClientPlayerEntityMixin",
+    "PlayerEntityMixin"
   ],
   "client": [
   ],

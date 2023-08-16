@@ -1,7 +1,9 @@
 package me.kurisu.passableleaves.mixin;
 
 import me.kurisu.passableleaves.PassableLeaves;
+import me.kurisu.passableleaves.access.PlayerEntityAccess;
 import me.kurisu.passableleaves.enchantment.PassableLeavesEnchantments;
+import me.kurisu.passableleaves.enums.KeybindAction;
 import net.minecraft.block.*;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -27,63 +29,80 @@ public abstract class AbstractBlockStateMixin {
 
     @Inject(method = "getCollisionShape(Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/ShapeContext;)Lnet/minecraft/util/shape/VoxelShape;", at = @At("HEAD"), cancellable = true)
     private void passableLeaves_adaptCollisionShape(BlockView world, BlockPos pos, ShapeContext context, CallbackInfoReturnable<VoxelShape> cir) {
-        if (this.isIn(BlockTags.LEAVES)) {
-            if (context instanceof EntityShapeContext) {
-                Entity entity = ((EntityShapeContext) context).getEntity();
+        if (!this.isIn(BlockTags.LEAVES)) {
+            return;
+        }
 
-                if (entity instanceof LivingEntity) {
-                    if (!entity.isPlayer() && PassableLeaves.CONFIG.playerOnlyAffected()) {
-                        cir.setReturnValue(VoxelShapes.fullCube());
-                        return;
-                    }
-                    // don't affect creative mode and flying
-                    if (entity instanceof PlayerEntity) {
-                        if (PassableLeaves.isFlyingInCreative(((PlayerEntity) (Object) entity))) {
-                            return;
-                        }
-                    }
+        if (!(context instanceof EntityShapeContext)) {
+            return;
+        }
 
-                    if (entity.isSneaking() && PassableLeaves.CONFIG.fallWhenSneakingEnabled()) {
-                        return;
-                    }
+        Entity entity = ((EntityShapeContext) context).getEntity();
 
-                    BlockPos entityPos = entity.getBlockPos();
-                    // check if leaf is below player
-                    if (pos.getY() < entityPos.getY()) {
-                        // don't apply when the player is falling from to high
-                        if (entity.fallDistance < entity.getSafeFallDistance() || !PassableLeaves.CONFIG.fallingEnabled()) {
-                            if (PassableLeaves.CONFIG.enchantmentEnabled()) {
-                                int enchantmentLevel = EnchantmentHelper.getEquipmentLevel(PassableLeavesEnchantments.LEAF_WALKER, (LivingEntity) entity);
-                                if (enchantmentLevel > 0) {
-                                    cir.setReturnValue(VoxelShapes.fullCube());
-                                    return;
-                                }
-                            }
+        if (!(entity instanceof LivingEntity)) {
+            return;
+        }
 
-                            if (PassableLeaves.CONFIG.walkOnTopOfLeavesEnabled()) {
-                                if (!PassableLeaves.CONFIG.sprintOnTopOfLeavesEnabled() && entity.isSprinting()) {
-                                    return;
-                                }
-                                cir.setReturnValue(VoxelShapes.fullCube());
-                            }
-                        }
-                    }
-                }
+        if (!entity.isPlayer() && PassableLeaves.CONFIG.playerOnlyAffected()) {
+            cir.setReturnValue(VoxelShapes.fullCube());
+            return;
+        }
+
+        if (entity instanceof PlayerEntity) {
+            // don't affect creative mode and flying
+            if (PassableLeaves.isFlyingInCreative(((PlayerEntity) (Object) entity))) {
+                return;
             }
+
+            boolean pressingKey = ((PlayerEntityAccess) (Object) entity).hasKeybindAction(KeybindAction.FALL_TROUGH_LEAVES);
+
+            if (PassableLeaves.CONFIG.fallOnKeyPress() && pressingKey) {
+                return;
+            }
+        }
+
+        BlockPos entityPos = entity.getBlockPos();
+        // check if leaf is below player
+        if (pos.getY() >= entityPos.getY()) {
+            return;
+        }
+
+        // don't apply when the player is falling from to high
+        if (entity.fallDistance > entity.getSafeFallDistance() || !PassableLeaves.CONFIG.fallingEnabled()) {
+            return;
+        }
+
+        if (PassableLeaves.CONFIG.enchantmentEnabled()) {
+            int enchantmentLevel = EnchantmentHelper.getEquipmentLevel(PassableLeavesEnchantments.LEAF_WALKER, (LivingEntity) entity);
+            if (enchantmentLevel > 0) {
+                cir.setReturnValue(VoxelShapes.fullCube());
+                return;
+            }
+        }
+
+        if (PassableLeaves.CONFIG.walkOnTopOfLeavesEnabled()) {
+            if (!PassableLeaves.CONFIG.sprintOnTopOfLeavesEnabled() && entity.isSprinting()) {
+                return;
+            }
+            cir.setReturnValue(VoxelShapes.fullCube());
         }
     }
 
+
     @Inject(method = "getAmbientOcclusionLightLevel", at = @At("HEAD"), cancellable = true)
-    private void passableLeaves_adaptOcclusionLightLevel(BlockView world, BlockPos pos, CallbackInfoReturnable<Float> cir) {
+    private void passableLeaves_adaptOcclusionLightLevel(BlockView world, BlockPos
+            pos, CallbackInfoReturnable<Float> cir) {
         if (this.isIn(BlockTags.LEAVES)) {
             cir.setReturnValue(0.2F);
         }
     }
 
     @Inject(method = "canPathfindThrough", at = @At("HEAD"), cancellable = true)
-    private void canPathfindThrough(BlockView world, BlockPos pos, NavigationType type, CallbackInfoReturnable<Boolean> cir) {
+    private void canPathfindThrough(BlockView world, BlockPos pos, NavigationType
+            type, CallbackInfoReturnable<Boolean> cir) {
         if (this.isIn(BlockTags.LEAVES)) {
             cir.setReturnValue(!PassableLeaves.CONFIG.playerOnlyAffected());
         }
     }
+
 }

@@ -8,11 +8,11 @@ import io.wispforest.owo.config.annotation.*;
 public class PassableLeavesConfigModel {
     @RangeConstraint(min = 0.0F, max = 1.0F)
     @Sync(Option.SyncMode.OVERRIDE_CLIENT)
-    public float fallingDistanceReductionMultiplier = 0.5F;
+    public float fallingDistanceMultiplier = 0.5F;
 
     @RangeConstraint(min = 0.0F, max = 1.0F)
     @Sync(Option.SyncMode.OVERRIDE_CLIENT)
-    public float fallingSpeedReductionMultiplier = 0.5F;
+    public float fallingSpeedMultiplier = 0.5F;
 
     @RangeConstraint(min = -1.0F, max = 1.0F)
     @Sync(Option.SyncMode.OVERRIDE_CLIENT)
@@ -38,8 +38,14 @@ public class PassableLeavesConfigModel {
     public boolean sprintOnTopOfLeavesEnabled = false;
 
     @Sync(Option.SyncMode.OVERRIDE_CLIENT)
-    public boolean fallWhenKeyPressEnabled = true;
+    public boolean fallOnKeyPress = true;
 
+    @Sync(Option.SyncMode.OVERRIDE_CLIENT)
+    public boolean disableFovChange = false;
+
+    @Sync(Option.SyncMode.OVERRIDE_CLIENT)
     public boolean soundEnabled = true;
+
+    @Sync(Option.SyncMode.OVERRIDE_CLIENT)
     public boolean particlesEnabled = true;
 }
