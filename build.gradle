@@ -3,7 +3,7 @@ plugins {
     id 'maven-publish'
     id "com.modrinth.minotaur" version "2.+"
     id "com.matthewprenger.cursegradle" version "1.4.0"
-    id 'se.bjurr.gitchangelog.git-changelog-gradle-plugin' version '1.73.0'
+    id 'se.bjurr.gitchangelog.git-changelog-gradle-plugin' version '1.79.0'
 }
 
 version = project.mod_version
@@ -103,10 +103,10 @@ publishing {
 }
 
 task gitChangelogTask(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
-    file = new File("CHANGELOG.md")
-    fromRepo = file(".")
+    fromRepo = file(new File("."))
+    file = file(new File("CHANGELOG.md"))
     prependToFile = false // false will replace the file, true will prepend content
-    templateContent = file('changelog.template').getText('UTF-8')
+    templateContent = file(new File('changelog.template')).getText('UTF-8')
 }
 
 modrinth {

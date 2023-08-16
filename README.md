@@ -9,6 +9,11 @@ It does what it says, lets you run through leaves. But wait there is more
 - there is even an enchantment named _**Leaf Walker**_ so that you can walk on them!
 - all of the above configurable
 - supports Mod Menu for configuration [1.18.2 with cloth config]
+## 1.9.4+
+- supports custom keybinding for falling through leaves
+- adjustable fov behaviour in leaves
+- no more craftable enchantment :( 
+
 
 ### Configurable
 - Falling distance reduction multiplier
@@ -22,6 +27,8 @@ It does what it says, lets you run through leaves. But wait there is more
 - Player only affected
 - Walk on leaves without enchantment
 - Sprint on leaves without enchantment
+- disable keybinding behaviour
+- fall through keybinding
 
 If you have any feedback, suggestions or wishes let me know via github issues.
 

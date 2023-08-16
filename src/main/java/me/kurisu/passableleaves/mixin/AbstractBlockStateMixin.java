@@ -54,7 +54,7 @@ public abstract class AbstractBlockStateMixin {
                 return;
             }
 
-            boolean pressingKey = ((PlayerEntityAccess) (Object) entity).hasKeybindAction(KeybindAction.FALL_TROUGH_LEAVES);
+            boolean pressingKey = ((PlayerEntityAccess) (Object) entity).hasKeybindAction(KeybindAction.FALL_THROUGH_LEAVES);
 
             if (PassableLeaves.CONFIG.fallOnKeyPress() && pressingKey) {
                 return;

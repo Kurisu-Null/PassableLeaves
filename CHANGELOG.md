@@ -1,7 +1,18 @@
 Changelog of Passable Leaves.
 
-## Unreleased
+## 1.4.0
 ### No issue
+
+**feat: adjustable fov behaviour, add keybind for falling.**
+
+ * refactor: falling detection logic
+
+[05b9f7af5c7adbe](https://github.com/Kurisu-Null/PassableLeaves/commit/05b9f7af5c7adbe) Kurisu *2023-08-16 21:08:57*
+
+**feat: support 1.19.4 - NBTCRAFTING unsupported (removed enchantment recipe)**
+
+
+[b4d9a1ca0c28c22](https://github.com/Kurisu-Null/PassableLeaves/commit/b4d9a1ca0c28c22) Kurisu *2023-08-14 21:41:17*
 
 **fix: expected normal behaviour**
 

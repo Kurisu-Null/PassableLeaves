@@ -11,7 +11,7 @@ import net.minecraft.client.util.InputUtil;
 
 public class KeyInputHandler {
     public static final String KEY_CATEGORY = "category.passableleaves.name";
-    public static final String KEY_FALL_TROUGH_LEAVES = "key.passableleaves.fall_through_leaves";
+    public static final String KEY_KEY_THROUGH_LEAVES = "key.passableleaves.fall_through_leaves";
 
     private static KeyBinding fallThroughLeavesKey;
 
@@ -20,14 +20,14 @@ public class KeyInputHandler {
     private static void registerKeyInputs() {
         ClientTickEvents.START_CLIENT_TICK.register(client -> {
             if (fallThroughLeavesKey.isPressed() && fallThroughLeavesKeyUp) {
-                PassableLeaves.PASSABLE_LEAVES_CHANNEL.clientHandle().send(new KeybindingC2SPacket(KeybindAction.FALL_TROUGH_LEAVES, true));
-                ((PlayerEntityAccess) client.player).addKeybindAction(KeybindAction.FALL_TROUGH_LEAVES);
+                PassableLeaves.PASSABLE_LEAVES_CHANNEL.clientHandle().send(new KeybindingC2SPacket(KeybindAction.FALL_THROUGH_LEAVES, true));
+                ((PlayerEntityAccess) client.player).addKeybindAction(KeybindAction.FALL_THROUGH_LEAVES);
                 fallThroughLeavesKeyUp = false;
             }
 
             if (!fallThroughLeavesKey.isPressed() && !fallThroughLeavesKeyUp) {
-                PassableLeaves.PASSABLE_LEAVES_CHANNEL.clientHandle().send(new KeybindingC2SPacket(KeybindAction.FALL_TROUGH_LEAVES, false));
-                ((PlayerEntityAccess) client.player).removeKeybindActions(KeybindAction.FALL_TROUGH_LEAVES);
+                PassableLeaves.PASSABLE_LEAVES_CHANNEL.clientHandle().send(new KeybindingC2SPacket(KeybindAction.FALL_THROUGH_LEAVES, false));
+                ((PlayerEntityAccess) client.player).removeKeybindActions(KeybindAction.FALL_THROUGH_LEAVES);
                 fallThroughLeavesKeyUp = true;
             }
         });
@@ -35,7 +35,7 @@ public class KeyInputHandler {
 
     public static void registerClient() {
         fallThroughLeavesKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                KEY_FALL_TROUGH_LEAVES,
+                KEY_KEY_THROUGH_LEAVES,
                 InputUtil.Type.KEYSYM,
                 InputUtil.UNKNOWN_KEY.getCode(),
                 KEY_CATEGORY
