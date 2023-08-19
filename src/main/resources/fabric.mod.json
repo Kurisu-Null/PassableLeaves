@@ -29,5 +29,15 @@
     "fabric": "*",
     "minecraft": "1.19.4",
     "owo-lib": "^0.11.0"
+  },
+  "custom": {
+    "loom:injected_interfaces": {
+      "net/minecraft/entity/player/PlayerEntity": [
+        "me/kurisu/passableleaves/access/PlayerEntityAccess"
+      ],
+      "net/minecraft/entity/Entity": [
+        "me/kurisu/passableleaves/access/EntityAccess"
+      ]
+    }
   }
 }

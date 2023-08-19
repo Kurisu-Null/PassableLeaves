@@ -9,15 +9,13 @@
     "LandPathNodeMakerMixin",
     "EntityMixin",
     "LeavesBlockMixin",
-    "LivingEntityMixin",
-    "MaterialBuilderAccess",
-    "MaterialMixin",
     "SnowBlockMixin",
     "VineBlockMixin",
-    "AbstractClientPlayerEntityMixin",
     "PlayerEntityMixin"
   ],
   "client": [
+    "AbstractClientPlayerEntityMixin",
+    "EntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

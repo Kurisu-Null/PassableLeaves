@@ -1,7 +1,6 @@
 package me.kurisu.passableleaves.mixin;
 
 import me.kurisu.passableleaves.PassableLeaves;
-import me.kurisu.passableleaves.access.PlayerEntityAccess;
 import me.kurisu.passableleaves.enchantment.PassableLeavesEnchantments;
 import me.kurisu.passableleaves.enums.KeybindAction;
 import net.minecraft.block.*;
@@ -43,7 +42,7 @@ public abstract class AbstractBlockStateMixin {
             return;
         }
 
-        if (!entity.isPlayer() && PassableLeaves.CONFIG.playerOnlyAffected()) {
+        if (!entity.isPlayer() && PassableLeaves.CONFIG.playerOnly()) {
             cir.setReturnValue(VoxelShapes.fullCube());
             return;
         }
@@ -54,7 +53,7 @@ public abstract class AbstractBlockStateMixin {
                 return;
             }
 
-            boolean pressingKey = ((PlayerEntityAccess) (Object) entity).hasKeybindAction(KeybindAction.FALL_THROUGH_LEAVES);
+            boolean pressingKey = ((PlayerEntity) (Object) entity).hasKeybindAction(KeybindAction.FALL_THROUGH_LEAVES);
 
             if (PassableLeaves.CONFIG.fallOnKeyPress() && pressingKey) {
                 return;
@@ -80,8 +79,8 @@ public abstract class AbstractBlockStateMixin {
             }
         }
 
-        if (PassableLeaves.CONFIG.walkOnTopOfLeavesEnabled()) {
-            if (!PassableLeaves.CONFIG.sprintOnTopOfLeavesEnabled() && entity.isSprinting()) {
+        if (PassableLeaves.CONFIG.leafWalking()) {
+            if (!PassableLeaves.CONFIG.leafSprinting() && entity.isSprinting()) {
                 return;
             }
             cir.setReturnValue(VoxelShapes.fullCube());
@@ -101,7 +100,7 @@ public abstract class AbstractBlockStateMixin {
     private void canPathfindThrough(BlockView world, BlockPos pos, NavigationType
             type, CallbackInfoReturnable<Boolean> cir) {
         if (this.isIn(BlockTags.LEAVES)) {
-            cir.setReturnValue(!PassableLeaves.CONFIG.playerOnlyAffected());
+            cir.setReturnValue(!PassableLeaves.CONFIG.playerOnly());
         }
     }
 

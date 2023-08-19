@@ -1,5 +1,7 @@
 package me.kurisu.passableleaves.access;
 
 public interface EntityAccess {
-    boolean getIsInsideLeaves();
+    default boolean getIsInsideLeaves() {
+        return false;
+    }
 }

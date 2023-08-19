@@ -14,7 +14,7 @@ public abstract class PathNodeTypeMixin {
     @ModifyConstant(method = "<clinit>", slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=LEAVES")),
             constant = @Constant(floatValue = -1.0F))
     private static float passableLeaves_setDefaultPenaltyOfLeaves(float defaultPenalty) {
-        if (PassableLeaves.CONFIG.playerOnlyAffected()) {
+        if (PassableLeaves.CONFIG.playerOnly()) {
             return defaultPenalty;
         }
         return 1.0F;
