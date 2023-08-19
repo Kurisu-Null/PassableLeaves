@@ -12,15 +12,15 @@ It does what it says, lets you run through leaves. But wait there is more
 ## 1.9.4+
 - supports custom keybinding for falling through leaves
 - adjustable fov behaviour in leaves
+- hide name tag
 - no more craftable enchantment :( 
 
 
 ### Configurable
-- Falling distance reduction multiplier
-- Falling speed reduction multiplier
-- Movement slow multiplier
-- Falling multiplier
-- Movement slow
+- Falling distance multiplier
+- Falling speed multiplier
+- walk slow multiplier
+- jump slow multiplier
 - Mod sounds
 - Enchantments
 - particles
@@ -28,7 +28,9 @@ It does what it says, lets you run through leaves. But wait there is more
 - Walk on leaves without enchantment
 - Sprint on leaves without enchantment
 - disable keybinding behaviour
-- fall through keybinding
+- fall through when keybinding is pressed
+- disable fov change when in leaves
+- enable hide name tag when in leaves
 
 If you have any feedback, suggestions or wishes let me know via github issues.
 
