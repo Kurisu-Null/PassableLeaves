@@ -1,5 +1,24 @@
 Changelog of Passable Leaves.
 
+## 1.5.0-1.19.4
+### No issue
+
+**update features of version 1.19.4 to match 1.20.0**
+
+
+[d26f5da387c1fd2](https://github.com/Kurisu-Null/PassableLeaves/commit/d26f5da387c1fd2) Kurisu *2023-08-19 00:23:41*
+
+**adjust fabric.mod depends**
+
+
+[6290f79327edfaa](https://github.com/Kurisu-Null/PassableLeaves/commit/6290f79327edfaa) Kurisu *2023-08-16 21:33:18*
+
+**bump changelog**
+
+
+[d3998f9c60e8ebe](https://github.com/Kurisu-Null/PassableLeaves/commit/d3998f9c60e8ebe) Kurisu *2023-08-16 21:22:34*
+
+
 ## 1.4.0
 ### No issue
 
