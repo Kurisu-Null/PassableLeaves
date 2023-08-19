@@ -27,7 +27,14 @@
   "depends": {
     "fabricloader": ">=0.14.22",
     "fabric": "*",
-    "minecraft": "1.19.4",
-    "owo-lib": "^0.11.0"
+    "minecraft": "1.20.0",
+    "owo-lib": "^0.11.1"
+  },
+  "custom": {
+    "loom:injected_interfaces": {
+      "net/minecraft/entity/player/PlayerEntity": ["me/kurisu/passableleaves/access/PlayerEntityAccess"],
+      "net/minecraft/entity/Entity": ["me/kurisu/passableleaves/access/EntityAccess"]
+
+    }
   }
 }

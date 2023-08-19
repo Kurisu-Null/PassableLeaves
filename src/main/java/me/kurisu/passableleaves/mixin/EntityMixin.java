@@ -18,6 +18,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Entity.class)
 public abstract class EntityMixin implements EntityAccess {
@@ -37,9 +38,14 @@ public abstract class EntityMixin implements EntityAccess {
     @Shadow
     public abstract BlockPos getBlockPos();
 
+    @Shadow public float fallDistance;
+
+    @Shadow public abstract int getSafeFallDistance();
+
     private boolean isInsideLeaves;
     private BlockPos lastLeafFalledOnPosition = null;
 
+    @Override
     public boolean getIsInsideLeaves() {
         return this.isInsideLeaves;
     }
@@ -54,6 +60,20 @@ public abstract class EntityMixin implements EntityAccess {
             this.handleInsideLeaves(leafBlockPos);
         } else {
             this.lastLeafFalledOnPosition = null;
+        }
+    }
+
+    @Inject(method = "getVelocityMultiplier", at = @At("HEAD"), cancellable = true)
+    private void passableLeaves_getVelocityMultiplier(CallbackInfoReturnable<Float> cir) {
+        if (this.isInsideLeaves) {
+            cir.setReturnValue(PassableLeaves.CONFIG.walkSlowMultiplier());
+        }
+    }
+
+    @Inject(method = "getJumpVelocityMultiplier", at = @At("HEAD"), cancellable = true)
+    private void passableLeaves_getJumpVelocityMultiplier(CallbackInfoReturnable<Float> cir) {
+        if (this.isInsideLeaves && this.fallDistance < this.getSafeFallDistance()) {
+            cir.setReturnValue(PassableLeaves.CONFIG.jumpSlowMultiplier());
         }
     }
 
