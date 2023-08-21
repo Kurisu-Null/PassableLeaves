@@ -3,6 +3,11 @@ Changelog of Passable Leaves.
 ## Unreleased
 ### No issue
 
+**update changelog**
+
+
+[4be9a9a05e68144](https://github.com/Kurisu-Null/PassableLeaves/commit/4be9a9a05e68144) Kurisu *2023-08-19 00:09:19*
+
 **update readme**
 
 

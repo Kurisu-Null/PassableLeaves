@@ -16,6 +16,7 @@
   "text.config.passableleaves.option.fallOnKeyPress": "Fall on defined key",
   "text.config.passableleaves.option.disableFovChange": "Deactivate fov changes when in leaves",
   "text.config.passableleaves.option.hideNameTag": "Hide name when in leaves",
+  "text.config.passableleaves.title": "Passable Leaves",
   "category.passableleaves.name": "Passable Leaves",
   "key.passableleaves.fall_through_leaves": "Fall through leaves"
 }
