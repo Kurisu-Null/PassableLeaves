@@ -6,7 +6,6 @@
   "text.config.passableleaves.option.walkSlowMultiplier": "Movement slow multiplier",
   "text.config.passableleaves.option.jumpSlowMultiplier": "Jump slow multiplier",
   "text.config.passableleaves.option.fallingEnabled": "Apply falling multiplier",
-  "text.config.passableleaves.option.slowEnabled": "Apply movement slow",
   "text.config.passableleaves.option.soundEnabled": "Enable mod sounds",
   "text.config.passableleaves.option.enchantmentEnabled": "Enable enchantments",
   "text.config.passableleaves.option.particlesEnabled": "Enable particles",
@@ -16,6 +15,7 @@
   "text.config.passableleaves.option.fallOnKeyPress": "Fall on defined key",
   "text.config.passableleaves.option.disableFovChange": "Deactivate fov changes when in leaves",
   "text.config.passableleaves.option.hideNameTag": "Hide name when in leaves",
+  "text.config.passableleaves.title": "Passable Leaves",
   "category.passableleaves.name": "Passable Leaves",
   "key.passableleaves.fall_through_leaves": "Fall through leaves"
 }
