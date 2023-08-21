@@ -3,6 +3,27 @@ Changelog of Passable Leaves.
 ## Unreleased
 ### No issue
 
+**Merge pull request #6 from dust-shadows/master**
+
+ * Add Simplified Chinese Translation
+
+[fb3004fbc241537](https://github.com/Kurisu-Null/PassableLeaves/commit/fb3004fbc241537) Kurisu-Null *2023-08-21 16:32:35*
+
+**Add zh_cn.json**
+
+
+[4612150bbe50ce5](https://github.com/Kurisu-Null/PassableLeaves/commit/4612150bbe50ce5) dust-shadows *2023-08-21 12:55:19*
+
+**update to mc 1.20.1**
+
+
+[1e2ab341e2f4e13](https://github.com/Kurisu-Null/PassableLeaves/commit/1e2ab341e2f4e13) Kurisu *2023-08-19 00:35:18*
+
+**update changelog**
+
+
+[4be9a9a05e68144](https://github.com/Kurisu-Null/PassableLeaves/commit/4be9a9a05e68144) Kurisu *2023-08-19 00:09:19*
+
 **update readme**
 
 
