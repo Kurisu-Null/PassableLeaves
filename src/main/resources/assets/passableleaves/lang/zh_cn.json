@@ -1,7 +1,7 @@
 {
   "enchantment.passableleaves.leaf_walker": "树叶行者",
   "enchantment.passableleaves.leaf_walker.desc": "允许玩家在树叶上行走。",
-  "text.config.passableleaves.option.fallingDistanceMultiplier": "掉落伤害倍率",
+  "text.config.passableleaves.option.fallingDistanceMultiplier": "掉落距离倍率",
   "text.config.passableleaves.option.fallingSpeedMultiplier": "掉落速度倍率",
   "text.config.passableleaves.option.walkSlowMultiplier": "移动迟缓倍率",
   "text.config.passableleaves.option.jumpSlowMultiplier": "跳跃迟缓倍率",
@@ -17,5 +17,6 @@
   "text.config.passableleaves.option.disableFovChange": "在树叶中禁用视场角变化",
   "text.config.passableleaves.option.hideNameTag": "在树叶中隐藏标签名称",
   "text.config.passableleaves.title": "叶间穿梭",
-  "key.passableleaves.fall_through_leaves": "从树叶中落下"
+  "category.passableleaves.name": "叶间穿梭",
+  "key.passableleaves.fall_through_leaves": "从树叶上落下"
 }
