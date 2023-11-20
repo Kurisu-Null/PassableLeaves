@@ -27,8 +27,8 @@
   "depends": {
     "fabricloader": ">=0.14.22",
     "fabric": "*",
-    "minecraft": "1.20.1",
-    "owo-lib": "^0.11.1"
+    "minecraft": "1.20.2",
+    "owo-lib": "^0.11.3"
   },
   "custom": {
     "loom:injected_interfaces": {
