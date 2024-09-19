@@ -97,7 +97,7 @@ public abstract class AbstractBlockStateMixin {
     }
 
     @Inject(method = "canPathfindThrough", at = @At("HEAD"), cancellable = true)
-    private void canPathfindThrough(BlockView world, BlockPos pos, NavigationType
+    private void passableleaves_canPathfindThrough(BlockView world, BlockPos pos, NavigationType
             type, CallbackInfoReturnable<Boolean> cir) {
         if (this.isIn(BlockTags.LEAVES)) {
             cir.setReturnValue(!PassableLeaves.CONFIG.playerOnly());

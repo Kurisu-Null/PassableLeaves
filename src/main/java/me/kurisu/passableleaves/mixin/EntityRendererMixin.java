@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(EntityRenderer.class)
 public abstract class EntityRendererMixin<T extends Entity> {
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
-    private void pfoliage_renderNameTag(T entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
+    private void passableleaves_renderNameTag(T entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
         if(entity.getIsInsideLeaves()){
             ci.cancel();
         }

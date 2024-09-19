@@ -11,7 +11,8 @@
     "LeavesBlockMixin",
     "SnowBlockMixin",
     "VineBlockMixin",
-    "PlayerEntityMixin"
+    "PlayerEntityMixin",
+    "FlowableFluidMixin"
   ],
   "client": [
     "AbstractClientPlayerEntityMixin",

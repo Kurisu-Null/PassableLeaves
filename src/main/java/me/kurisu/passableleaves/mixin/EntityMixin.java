@@ -22,6 +22,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Entity.class)
 public abstract class EntityMixin implements EntityAccess {
+    
     @Shadow
     public abstract void playSound(SoundEvent sound, float volume, float pitch);
 

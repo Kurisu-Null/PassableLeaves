@@ -1,5 +1,6 @@
 package me.kurisu.passableleaves.mixin;
 
+import me.kurisu.passableleaves.PassableLeaves;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SnowBlock;
 import net.minecraft.registry.tag.BlockTags;
@@ -12,12 +13,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SnowBlock.class)
 public class SnowBlockMixin {
-
-    @Inject(method = "canPlaceAt", at = @At("HEAD"), cancellable = true)
-    private void passableLeaves_canPlaceAt(BlockState state, WorldView world, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-        BlockState blockState = world.getBlockState(pos.down());
-        if (blockState.isIn(BlockTags.LEAVES)) {
-            cir.setReturnValue(true);
-        }
-    }
+//    @Inject(method = "canPlaceAt", at = @At("HEAD"), cancellable = true)
+//    private void passableLeaves_canPlaceAt(BlockState state, WorldView world, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
+//        BlockState blockState = world.getBlockState(pos.down());
+//        if (blockState.isIn(BlockTags.LEAVES)) {
+//            cir.setReturnValue(true);
+//        }
+//    }
 }
