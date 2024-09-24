@@ -5,14 +5,11 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "AbstractBlockStateMixin",
-    "PathNodeTypeMixin",
-    "LandPathNodeMakerMixin",
     "EntityMixin",
-    "LeavesBlockMixin",
-    "SnowBlockMixin",
-    "VineBlockMixin",
+    "LandPathNodeMakerMixin",
+    "PathNodeTypeMixin",
     "PlayerEntityMixin",
-    "FlowableFluidMixin"
+    "ProjectileEntityMixin"
   ],
   "client": [
     "AbstractClientPlayerEntityMixin",

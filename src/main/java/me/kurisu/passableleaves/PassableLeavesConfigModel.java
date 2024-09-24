@@ -53,4 +53,11 @@ public class PassableLeavesConfigModel {
 
     @Sync(Option.SyncMode.OVERRIDE_CLIENT)
     public boolean particlesEnabled = true;
+
+    @RangeConstraint(min = 0.0F, max = 1.0F)
+    @Sync(Option.SyncMode.OVERRIDE_CLIENT)
+    public float projectileHitLeavesChance = 0.5F;
+
+    @Sync(Option.SyncMode.OVERRIDE_CLIENT)
+    public boolean canHitThroughLeaves = true;
 }

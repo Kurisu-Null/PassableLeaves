@@ -1,6 +1,5 @@
 package me.kurisu.passableleaves.mixin;
 
-import me.kurisu.passableleaves.PassableLeaves;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
@@ -14,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class EntityRendererMixin<T extends Entity> {
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
     private void passableleaves_renderNameTag(T entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
-        if(entity.getIsInsideLeaves()){
+        if(entity.passableLeaves$getIsInsideLeaves()){
             ci.cancel();
         }
     }

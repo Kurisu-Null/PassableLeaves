@@ -13,8 +13,10 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -22,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Entity.class)
 public abstract class EntityMixin implements EntityAccess {
-    
+
     @Shadow
     public abstract void playSound(SoundEvent sound, float volume, float pitch);
 
@@ -39,22 +41,41 @@ public abstract class EntityMixin implements EntityAccess {
     @Shadow
     public abstract BlockPos getBlockPos();
 
-    @Shadow public float fallDistance;
+    @Shadow
+    public float fallDistance;
 
-    @Shadow public abstract int getSafeFallDistance();
+    @Shadow
+    public abstract int getSafeFallDistance();
 
+    @Unique
     private boolean isInsideLeaves;
+
+    @Unique
+    @Nullable
     private BlockPos lastLeafFalledOnPosition = null;
 
+    @Unique
+    @Nullable
+    private BlockPos lastLeaveWentThrough = null;
+
     @Override
-    public boolean getIsInsideLeaves() {
+    public boolean passableLeaves$getIsInsideLeaves() {
         return this.isInsideLeaves;
+    }
+
+    @Nullable
+    public BlockPos passableLeaves$getLastLeaveWentThrough() {
+        return this.lastLeaveWentThrough;
+    }
+
+    public void passableLeaves$setLastLeaveWentThrough(@Nullable BlockPos blockPos) {
+        this.lastLeaveWentThrough = blockPos;
     }
 
     @Inject(method = "baseTick", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/Entity;inPowderSnow:Z"))
     private void passableLeaves_baseTick(CallbackInfo ci) {
 
-        BlockPos leafBlockPos = this.getLeafPositionEntityIsInside();
+        BlockPos leafBlockPos = this.passableLeaves$getLeavePositionEntityIsInside();
         this.isInsideLeaves = leafBlockPos != null;
 
         if (this.isInsideLeaves) {
@@ -87,7 +108,16 @@ public abstract class EntityMixin implements EntityAccess {
         }
     }
 
-    private BlockPos getLeafPositionEntityIsInside() {
+    public boolean passableLeaves$isInLeave(BlockPos blockPos) {
+        Box contractedBoundingBox = this.getBoundingBox().contract(0.1F);
+        return BlockPos.stream(contractedBoundingBox).anyMatch((pos) -> {
+            BlockState blockState = this.world.getBlockState(pos);
+            return blockState.isIn(BlockTags.LEAVES) && pos.equals(blockPos);
+        });
+    }
+
+
+    public BlockPos passableLeaves$getLeavePositionEntityIsInside() {
         Box contractedBoundingBox = this.getBoundingBox().contract(0.1F);
         return BlockPos.stream(contractedBoundingBox).filter((pos) -> {
             BlockState blockState = this.world.getBlockState(pos);
@@ -95,6 +125,7 @@ public abstract class EntityMixin implements EntityAccess {
         }).findFirst().orElse(null);
     }
 
+    @Unique
     private void handleInsideLeaves(BlockPos blockPos) {
         if (((Entity) (Object) this) instanceof PlayerEntity) {
             if (PassableLeaves.isFlyingInCreative(((PlayerEntity) (Object) this))) {
@@ -107,6 +138,7 @@ public abstract class EntityMixin implements EntityAccess {
         }
     }
 
+    @Unique
     private void fallingOnLeaves(BlockPos blockPos, World world, Entity entity) {
         // dont apply same effect on same leaf
         if (this.lastLeafFalledOnPosition != null && this.lastLeafFalledOnPosition.equals(blockPos)) {

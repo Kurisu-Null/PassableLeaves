@@ -15,6 +15,8 @@
   "text.config.passableleaves.option.fallOnKeyPress": "Falle bei tastenbelegung",
   "text.config.passableleaves.option.disableFovChange": "Deaktiviere die FOV aenderung",
   "text.config.passableleaves.option.hideNameTag": "Verstecke den Namen wenn im Laub",
+  "text.config.passableleaves.option.projectileHitLeavesChance": "Wie hoch ist die Chance das Projektile stecken bleiben?",
+  "text.config.passableleaves.option.canHitThroughLeaves": "Erlaube es durch Laub zu schlagen mit Waffen",
   "text.config.passableleaves.title": "Passable Leaves",
   "category.passableleaves.name": "Passable Leaves",
   "key.passableleaves.fall_through_leaves": "Falle durch Blätter"

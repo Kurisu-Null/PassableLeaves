@@ -9,6 +9,8 @@ It does what it says, lets you run through leaves. But wait there is more
 - there is even an enchantment named _**Leaf Walker**_ so that you can walk on them!
 - all of the above configurable
 - supports Mod Menu for configuration [1.18.2 with cloth config]
+- hit the faces of your enemies through leaves or with projectiles
+- should now be compatible with distant horizon
 ## 1.9.4+
 - supports custom keybinding for falling through leaves
 - adjustable fov behaviour in leaves
@@ -31,6 +33,8 @@ It does what it says, lets you run through leaves. But wait there is more
 - fall through when keybinding is pressed
 - disable fov change when in leaves
 - enable hide name tag when in leaves
+- How high is the change that projectiles will get stuck in leaves
+- Allow to hit with a weapon through leaves
 
 If you have any feedback, suggestions or wishes let me know via github issues.
 

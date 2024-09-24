@@ -1,7 +1,28 @@
 package me.kurisu.passableleaves.access;
 
+import net.minecraft.util.math.BlockPos;
+import org.jetbrains.annotations.Nullable;
+
 public interface EntityAccess {
-    default boolean getIsInsideLeaves() {
+    default boolean passableLeaves$getIsInsideLeaves() {
         return false;
     }
+
+    @Nullable
+    default BlockPos passableLeaves$getLastLeaveWentThrough() {
+        return null;
+    }
+
+    default void passableLeaves$setLastLeaveWentThrough(BlockPos blockPos) {
+    }
+
+    @Nullable
+    default BlockPos passableLeaves$getLeavePositionEntityIsInside() {
+        return null;
+    }
+
+    default boolean passableLeaves$isInLeave(BlockPos blockPos) {
+        return false;
+    }
+
 }

@@ -26,7 +26,7 @@ public abstract class AbstractClientPlayerEntityMixin extends PlayerEntity {
             return f;
         }
 
-        if (this.getIsInsideLeaves()) {
+        if (this.passableLeaves$getIsInsideLeaves()) {
             return 1.0f;
         }
 
