@@ -24,7 +24,6 @@ public abstract class PersistenProjectileMixin {
     @Shadow
     protected abstract boolean shouldFall();
 
-    @Unique
     @ModifyExpressionValue(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockState;getCollisionShape(Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/util/shape/VoxelShape;"))
     private VoxelShape passableleaves$tick$preventStickingInLeaves(VoxelShape originalVoxelShape, @Local BlockState blockState) {
         if (blockState.isIn(BlockTags.LEAVES)) {
