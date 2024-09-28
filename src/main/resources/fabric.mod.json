@@ -32,9 +32,18 @@
   },
   "custom": {
     "loom:injected_interfaces": {
-      "net/minecraft/entity/player/PlayerEntity": ["me/kurisu/passableleaves/access/PlayerEntityAccess"],
-      "net/minecraft/entity/Entity": ["me/kurisu/passableleaves/access/EntityAccess"]
-
+      "net/minecraft/entity/player/PlayerEntity": [
+        "me/kurisu/passableleaves/access/PlayerEntityAccess"
+      ],
+      "net/minecraft/entity/Entity": [
+        "me/kurisu/passableleaves/access/EntityAccess"
+      ],
+      "net/minecraft/entity/projectile/ProjectileEntity": [
+        "me/kurisu/passableleaves/access/ProjectileEntityAccess"
+      ],
+      "net/minecraft/client/render/GameRenderer": [
+        "me/kurisu/passableleaves/access/GameRendererAccess"
+      ]
     }
   }
 }

@@ -3,6 +3,7 @@ package me.kurisu.passableleaves;
 import io.wispforest.owo.network.OwoNetChannel;
 import me.kurisu.passableleaves.enchantment.PassableLeavesEnchantments;
 import me.kurisu.passableleaves.event.KeyInputHandler;
+import me.kurisu.passableleaves.event.SoundHandler;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
@@ -19,6 +20,7 @@ public class PassableLeaves implements ModInitializer {
     public void onInitialize() {
         PassableLeavesEnchantments.initialize();
         KeyInputHandler.registerServer();
+        SoundHandler.registerServer();
     }
 
     public static boolean isFlyingInCreative(PlayerEntity playerEntity) {

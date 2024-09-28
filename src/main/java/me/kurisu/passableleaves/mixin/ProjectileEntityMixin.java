@@ -9,6 +9,7 @@ import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -20,46 +21,58 @@ import org.spongepowered.asm.mixin.Unique;
 public class ProjectileEntityMixin implements ProjectileEntityAccess {
     @Unique
     @Nullable
-    private BlockPos lastLeavesWentThrough;
+    private BlockPos lastLeaveWentThrough;
+
+    @Unique
+    @Nullable
+    private BlockPos stuckOnLeave;
 
     @Shadow
-    private @Nullable Entity owner;
+    @Nullable
+    private Entity owner;
 
     public boolean passableLeaves$canPassThroughLeaves(BlockPos blockPos) {
-        if (blockPos.equals(this.lastLeavesWentThrough)) {
+        if (((Entity) (Object) this).getBlockPos().equals(this.stuckOnLeave)) {
+            return false;
+        }
+
+        if (blockPos.equals(this.lastLeaveWentThrough)) {
             return true;
         }
 
         Entity entity = ((Entity) (Object) this);
         int multiplier = (int) entity.getVelocity().length();
 
-        if (PassableLeaves.CONFIG.soundEnabled()) {
-            BlockSoundGroup soundGroup = BlockSoundGroup.AZALEA_LEAVES;
-            entity.playSound(soundGroup.getBreakSound(), soundGroup.getVolume() * multiplier * 0.6F,
-                    soundGroup.getPitch());
-        }
-
         World world = entity.getWorld();
 
-        // spawn fancy particle
-        if (!world.isClient && PassableLeaves.CONFIG.particlesEnabled()) {
-            int particleCount = multiplier * 2;
-            BlockState blockState = world.getBlockState(blockPos);
-            ((ServerWorld) world).spawnParticles(new BlockStateParticleEffect(ParticleTypes.BLOCK, blockState),
-                    entity.getX(), entity.getY(), entity.getZ(), particleCount,
-                    0.0, 0.0, 0.0, 0.15000000596046448);
+        if (!world.isClient) {
+            if (PassableLeaves.CONFIG.soundEnabled()) {
+                BlockSoundGroup soundGroup = BlockSoundGroup.AZALEA_LEAVES;
+                world.playSound(null, blockPos, soundGroup.getBreakSound(), SoundCategory.BLOCKS, soundGroup.getVolume() * multiplier * 0.6F,
+                        soundGroup.getPitch());
+            }
+
+            // spawn fancy particle
+            if (PassableLeaves.CONFIG.particlesEnabled()) {
+                int particleCount = multiplier * 2;
+                BlockState blockState = world.getBlockState(blockPos);
+                ((ServerWorld) world).spawnParticles(new BlockStateParticleEffect(ParticleTypes.BLOCK, blockState),
+                        entity.getX(), entity.getY(), entity.getZ(), particleCount,
+                        0.0, 0.0, 0.0, 0.15000000596046448);
+            }
         }
 
         if (this.owner != null && this.owner.passableLeaves$isInLeave(blockPos)) {
-            this.lastLeavesWentThrough = blockPos;
+            this.lastLeaveWentThrough = blockPos;
             return true;
         }
 
-        if(Math.random() > PassableLeaves.CONFIG.projectileHitLeavesChance()){
-            this.lastLeavesWentThrough = blockPos;
+        if (Math.random() > PassableLeaves.CONFIG.projectileHitLeavesChance()) {
+            this.lastLeaveWentThrough = blockPos;
             return true;
         }
 
+        this.stuckOnLeave = blockPos;
         return false;
     }
 

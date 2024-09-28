@@ -47,6 +47,15 @@ public abstract class EntityMixin implements EntityAccess {
     @Shadow
     public abstract int getSafeFallDistance();
 
+    @Shadow
+    public abstract Vec3d getCameraPosVec(float tickDelta);
+
+    @Shadow
+    public abstract Vec3d getRotationVec(float tickDelta);
+
+    @Shadow
+    public abstract World getWorld();
+
     @Unique
     private boolean isInsideLeaves;
 
@@ -54,22 +63,10 @@ public abstract class EntityMixin implements EntityAccess {
     @Nullable
     private BlockPos lastLeafFalledOnPosition = null;
 
-    @Unique
-    @Nullable
-    private BlockPos lastLeaveWentThrough = null;
 
     @Override
     public boolean passableLeaves$getIsInsideLeaves() {
         return this.isInsideLeaves;
-    }
-
-    @Nullable
-    public BlockPos passableLeaves$getLastLeaveWentThrough() {
-        return this.lastLeaveWentThrough;
-    }
-
-    public void passableLeaves$setLastLeaveWentThrough(@Nullable BlockPos blockPos) {
-        this.lastLeaveWentThrough = blockPos;
     }
 
     @Inject(method = "baseTick", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/Entity;inPowderSnow:Z"))
@@ -173,6 +170,6 @@ public abstract class EntityMixin implements EntityAccess {
 
         entity.fallDistance = entity.fallDistance * PassableLeaves.CONFIG.fallingDistanceMultiplier();
         entity.handleFallDamage(entity.fallDistance, 1.0F, world.getDamageSources().fall());
-
     }
+
 }

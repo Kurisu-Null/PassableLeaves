@@ -9,14 +9,6 @@ public interface EntityAccess {
     }
 
     @Nullable
-    default BlockPos passableLeaves$getLastLeaveWentThrough() {
-        return null;
-    }
-
-    default void passableLeaves$setLastLeaveWentThrough(BlockPos blockPos) {
-    }
-
-    @Nullable
     default BlockPos passableLeaves$getLeavePositionEntityIsInside() {
         return null;
     }

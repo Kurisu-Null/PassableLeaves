@@ -8,12 +8,15 @@
     "EntityMixin",
     "LandPathNodeMakerMixin",
     "PathNodeTypeMixin",
+    "PersistenProjectileMixin",
     "PlayerEntityMixin",
     "ProjectileEntityMixin"
   ],
   "client": [
     "AbstractClientPlayerEntityMixin",
-    "EntityRendererMixin"
+    "EntityRendererMixin",
+    "GameRendererMixin",
+    "MinecraftClientMixin"
   ],
   "injectors": {
     "defaultRequire": 1
