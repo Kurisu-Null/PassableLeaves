@@ -1,6 +1,7 @@
 package me.kurisu.passableleaves.mixin;
 
 import me.kurisu.passableleaves.PassableLeaves;
+import me.kurisu.passableleaves.access.AbstractBlockStateAccess;
 import me.kurisu.passableleaves.access.ProjectileEntityAccess;
 import me.kurisu.passableleaves.enchantment.PassableLeavesEnchantments;
 import me.kurisu.passableleaves.enums.KeybindAction;
@@ -14,21 +15,38 @@ import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.List;
+
 @Mixin(AbstractBlock.AbstractBlockState.class)
-public abstract class AbstractBlockStateMixin {
+public abstract class AbstractBlockStateMixin implements AbstractBlockStateAccess {
+
+    @Unique
+    public boolean playerHitLeaves;
+
     @Shadow
     public abstract boolean isIn(TagKey<Block> tag);
 
+    public void passableleaves$playerHitLeaves() {
+        this.playerHitLeaves = true;
+    }
+
+    public boolean $passableleaves$getPlayerHitLeaves() {
+        return this.playerHitLeaves;
+    }
 
     @Inject(method = "getCollisionShape(Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/util/shape/VoxelShape;", at = @At("HEAD"), cancellable = true)
     private void passableleaves_getCollisionShape(BlockView world, BlockPos pos, CallbackInfoReturnable<VoxelShape> cir) {
@@ -45,18 +63,31 @@ public abstract class AbstractBlockStateMixin {
             return;
         }
 
-        if (!(context instanceof EntityShapeContext)) {
+        if (!(context instanceof EntityShapeContext entityShapeContext)) {
             return;
         }
 
-        Entity entity = ((EntityShapeContext) context).getEntity();
+        Entity entity = entityShapeContext.getEntity();
 
         if (entity == null) {
             return;
         }
 
-        if (entity instanceof ProjectileEntity) {
-            if (((ProjectileEntityAccess) (Object) entity).passableLeaves$canPassThroughLeaves(pos)) {
+        if (this.playerHitLeaves) {
+            Box area = new Box(pos).stretch(0f, 0.06f, 0f);
+            List<Entity> entitiesAtPosition = entity.getWorld().getOtherEntities(null, area);
+            if (entitiesAtPosition.isEmpty()) {
+                this.playerHitLeaves = false;
+            }
+        }
+
+        if (entity instanceof ProjectileEntity projectileEntity) {
+            if (this.playerHitLeaves) {
+                cir.setReturnValue(VoxelShapes.empty());
+                return;
+            }
+
+            if (((ProjectileEntityAccess) projectileEntity).passableLeaves$canPassThroughLeaves(pos)) {
                 cir.setReturnValue(VoxelShapes.empty());
                 return;
             }
@@ -92,6 +123,11 @@ public abstract class AbstractBlockStateMixin {
             return;
         }
 
+        if (this.playerHitLeaves) {
+            cir.setReturnValue(VoxelShapes.empty());
+            return;
+        }
+
         // don't apply when the player is falling from to high
         if (entity.fallDistance > entity.getSafeFallDistance() || !PassableLeaves.CONFIG.fallingEnabled()) {
             cir.setReturnValue(VoxelShapes.empty());
@@ -117,5 +153,18 @@ public abstract class AbstractBlockStateMixin {
         if (this.isIn(BlockTags.LEAVES)) {
             cir.setReturnValue(!PassableLeaves.CONFIG.playerOnly());
         }
+    }
+
+    @Inject(method = "onBlockBreakStart", at = @At("HEAD"))
+    private void passableleaves$onBlockBreakStart(World world, BlockPos pos, PlayerEntity player, CallbackInfo ci) {
+        if (!this.isIn(BlockTags.LEAVES)) {
+            return;
+        }
+
+        if (!PassableLeaves.CONFIG.fallWhenHittingLeaves()) {
+            return;
+        }
+
+        this.playerHitLeaves = true;
     }
 }

@@ -43,6 +43,9 @@
       ],
       "net/minecraft/client/render/GameRenderer": [
         "me/kurisu/passableleaves/access/GameRendererAccess"
+      ],
+      "net/minecraft/block/AbstractBlock": [
+        "me/kurisu/passableleaves/access/AbstractBlockStateAccess"
       ]
     }
   }

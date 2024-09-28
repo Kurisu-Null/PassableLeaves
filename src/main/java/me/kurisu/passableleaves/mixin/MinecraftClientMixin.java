@@ -3,7 +3,9 @@ package me.kurisu.passableleaves.mixin;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import io.wispforest.owo.particles.ClientParticles;
 import me.kurisu.passableleaves.PassableLeaves;
+import me.kurisu.passableleaves.access.AbstractBlockStateAccess;
 import me.kurisu.passableleaves.access.GameRendererAccess;
+import me.kurisu.passableleaves.network.packet.HitLeaveC2SPacket;
 import me.kurisu.passableleaves.network.packet.SoundC2SPacket;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
@@ -42,12 +44,8 @@ public abstract class MinecraftClientMixin {
     @Nullable
     public ClientWorld world;
 
-    @Shadow
-    @Nullable
-    public HitResult crosshairTarget;
-
     @ModifyExpressionValue(method = "doAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/hit/HitResult;getType()Lnet/minecraft/util/hit/HitResult$Type;"))
-    private HitResult.Type test(HitResult.Type original) {
+    private HitResult.Type passableleaves$doAttack$checkIfHitLeaves(HitResult.Type original) {
         BlockPos bypassedLeave = ((GameRendererAccess) this.gameRenderer).passableLeaves$getBypassedLeave();
 
         if (bypassedLeave == null) {
@@ -55,9 +53,13 @@ public abstract class MinecraftClientMixin {
         }
 
         if (Math.random() <= PassableLeaves.CONFIG.attackHitLeavesChange()) {
-
             if (world == null) {
                 return HitResult.Type.MISS;
+            }
+
+            if (PassableLeaves.CONFIG.fallWhenHittingLeaves()) {
+                PassableLeaves.PASSABLE_LEAVES_CHANNEL.clientHandle().send(new HitLeaveC2SPacket(bypassedLeave));
+                ((AbstractBlockStateAccess) world.getBlockState(bypassedLeave)).passableleaves$playerHitLeaves();
             }
 
             // Should not happend

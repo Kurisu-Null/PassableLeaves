@@ -5,6 +5,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalDoubleRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import me.kurisu.passableleaves.PassableLeaves;
 import me.kurisu.passableleaves.access.GameRendererAccess;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
@@ -44,7 +45,7 @@ public class GameRendererMixin implements GameRendererAccess {
         HitResult hitResult = this.client.crosshairTarget;
         this.bypassedLeave = null;
 
-        if (hitResult == null) {
+        if (hitResult == null || PassableLeaves.CONFIG.attackHitLeavesChange() == 1f) {
             return original;
         }
 

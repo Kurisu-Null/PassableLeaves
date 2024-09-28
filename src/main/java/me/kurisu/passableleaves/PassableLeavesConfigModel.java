@@ -61,4 +61,7 @@ public class PassableLeavesConfigModel {
     @RangeConstraint(min = 0.0F, max = 1.0F)
     @Sync(Option.SyncMode.OVERRIDE_CLIENT)
     public float attackHitLeavesChange = 0.5F;
+
+    @Sync(Option.SyncMode.OVERRIDE_CLIENT)
+    public boolean fallWhenHittingLeaves = true;
 }

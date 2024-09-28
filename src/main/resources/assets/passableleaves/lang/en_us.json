@@ -18,6 +18,7 @@
   "text.config.passableleaves.option.hideNameTag": "Hide name when in leaves",
   "text.config.passableleaves.option.projectileHitLeavesChance": "How high is the chance that projectiles will get stuck in leaves",
   "text.config.passableleaves.option.attackHitLeavesChange": "How high is the chance that your attack will hit leaves",
+  "text.config.passableleaves.option.fallWhenHittingLeaves": "Objects fall down when leaves are hit",
   "text.config.passableleaves.title": "Passable Leaves",
   "category.passableleaves.name": "Passable Leaves",
   "key.passableleaves.fall_through_leaves": "Fall through leaves"
