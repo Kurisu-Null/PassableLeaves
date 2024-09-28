@@ -3,10 +3,8 @@ package me.kurisu.passableleaves.mixin;
 import me.kurisu.passableleaves.PassableLeaves;
 import me.kurisu.passableleaves.access.AbstractBlockStateAccess;
 import me.kurisu.passableleaves.access.ProjectileEntityAccess;
-import me.kurisu.passableleaves.enchantment.PassableLeavesEnchantments;
 import me.kurisu.passableleaves.enums.KeybindAction;
 import net.minecraft.block.*;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.pathing.NavigationType;
@@ -134,18 +132,14 @@ public abstract class AbstractBlockStateMixin implements AbstractBlockStateAcces
             return;
         }
 
-        if (PassableLeaves.CONFIG.enchantmentEnabled()) {
-            int enchantmentLevel = EnchantmentHelper.getEquipmentLevel(PassableLeavesEnchantments.LEAF_WALKER, (LivingEntity) entity);
-            if (enchantmentLevel > 0) {
-                return;
-            }
+        if (!PassableLeaves.CONFIG.leafWalking()) {
+            cir.setReturnValue(VoxelShapes.empty());
         }
 
-        if (PassableLeaves.CONFIG.leafWalking()) {
-            if (!PassableLeaves.CONFIG.leafSprinting() && entity.isSprinting()) {
-                cir.setReturnValue(VoxelShapes.empty());
-            }
+        if (!PassableLeaves.CONFIG.leafSprinting() && entity.isSprinting()) {
+            cir.setReturnValue(VoxelShapes.empty());
         }
+
     }
 
     @Inject(method = "canPathfindThrough", at = @At("HEAD"), cancellable = true)

@@ -33,8 +33,10 @@ It does what it says, lets you run through leaves. But wait there is more
 - fall through when keybinding is pressed
 - disable fov change when in leaves
 - enable hide name tag when in leaves
-- How high is the change that projectiles will get stuck in leaves
-- Allow to hit with a weapon through leaves
+- How high is the chance that projectiles will get stuck in leaves
+- Allow to hit through leaves
+- Adjust the chance to hit leaves
+- Entities fall down when on leaves that are hitted
 
 If you have any feedback, suggestions or wishes let me know via github issues.
 

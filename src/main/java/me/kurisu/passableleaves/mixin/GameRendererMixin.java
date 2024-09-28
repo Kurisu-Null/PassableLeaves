@@ -41,7 +41,7 @@ public class GameRendererMixin implements GameRendererAccess {
     }
 
     @ModifyExpressionValue(method = "updateTargetedEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/Vec3d;squaredDistanceTo(Lnet/minecraft/util/math/Vec3d;)D", opcode = Opcodes.INVOKEVIRTUAL, ordinal = 0))
-    private double passableleaves$updateTargetedEntity$ignoreLeavesSafeEBefore(double original, @Local(ordinal = 1) double eBefore, @Share("eBeforeApplying") LocalDoubleRef sharedEOriginalRef, @Share("bypassedLeave") LocalRef<BlockPos> bypassedLeave) {
+    private double passableleaves$updateTargetedEntity$ignoreLeavesSafeEBefore(double original, @Local(ordinal = 0) double dBefore, @Share("eBeforeApplying") LocalDoubleRef sharedEOriginalRef, @Share("bypassedLeave") LocalRef<BlockPos> bypassedLeave) {
         HitResult hitResult = this.client.crosshairTarget;
         this.bypassedLeave = null;
 
@@ -62,7 +62,9 @@ public class GameRendererMixin implements GameRendererAccess {
             if (blockState.isIn(BlockTags.LEAVES)) {
                 sharedEOriginalRef.set(original);
                 bypassedLeave.set(blockHitResult.getBlockPos());
-                return eBefore;
+                PassableLeaves.LOGGER.info(dBefore);
+                // That what it is doing in the if else statement
+                return dBefore * dBefore;
             }
         }
 
