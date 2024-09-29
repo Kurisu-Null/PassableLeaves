@@ -62,7 +62,6 @@ public class GameRendererMixin implements GameRendererAccess {
             if (blockState.isIn(BlockTags.LEAVES)) {
                 sharedEOriginalRef.set(original);
                 bypassedLeave.set(blockHitResult.getBlockPos());
-                PassableLeaves.LOGGER.info(dBefore);
                 // That what it is doing in the if else statement
                 return dBefore * dBefore;
             }
