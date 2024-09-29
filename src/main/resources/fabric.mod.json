@@ -27,7 +27,7 @@
   "depends": {
     "fabricloader": ">=0.14.22",
     "fabric": "*",
-    "minecraft": "1.20.3",
+    "minecraft": "1.20.4",
     "owo-lib": "^0.12.0"
   },
   "custom": {
