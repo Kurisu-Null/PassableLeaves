@@ -7,11 +7,13 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.Registries;
 
 public class PassableLeavesEnchantments {
-    public static Enchantment LEAF_WALKER;
+    public static Enchantment LEAVES_WALKER;
+    public static Enchantment LEAVES_STRIDER;
 
     public static void initialize() {
         if (PassableLeaves.CONFIG.enchantmentEnabled()) {
-            LEAF_WALKER = new LeafWalkerEnchantment();
+            LEAVES_WALKER = new LeavesWalkerEnchantment();
+            LEAVES_STRIDER = new LeavesStriderEntchantment();
         }
     }
 

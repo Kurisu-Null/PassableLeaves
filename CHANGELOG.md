@@ -2,9 +2,31 @@
 
 Changelog of PassableLeaves.
 
-## 1.6.0-1.2.1 (2024-09-24)
+## 1.6.0-1.2.1 (2024-09-28)
 
 ### Other changes
+
+**version 1.6.0**
+
+* - add logic for handling fallling down when interacting with leaves 
+
+[2e224](https://github.com/Kurisu-Null/PassableLeaves/commit/2e2248da86c5782) Kurisu *2024-09-28 14:44:25*
+
+**version 1.6.0**
+
+* - add logic for handling fallling down when interacting with leaves 
+
+[29c05](https://github.com/Kurisu-Null/PassableLeaves/commit/29c0529432a7255) Kurisu *2024-09-28 14:42:10*
+
+**version 1.6.0**
+
+* - projectile handling 
+* - can hit through leaves with a weapon 
+* - #11 snow on top of trees is back 
+* - #16 now compatible with horizon 
+* - #14 watterlogging fixed 
+
+[f5b7e](https://github.com/Kurisu-Null/PassableLeaves/commit/f5b7ecd5f0393da) Kurisu *2024-09-28 02:20:32*
 
 **version 1.6.0**
 

@@ -11,7 +11,6 @@ public class NetworkHandlerKeyInput {
                 ((PlayerEntityAccess) access.player()).addKeybindAction(message.keybindAction());
             } else {
                 ((PlayerEntityAccess) access.player()).removeKeybindActions(message.keybindAction());
-
             }
         });
     }
