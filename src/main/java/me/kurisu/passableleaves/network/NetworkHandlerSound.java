@@ -1,4 +1,4 @@
-package me.kurisu.passableleaves.event;
+package me.kurisu.passableleaves.network;
 
 import io.wispforest.owo.network.serialization.PacketBufSerializer;
 import me.kurisu.passableleaves.PassableLeaves;
@@ -9,7 +9,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 
-public class SoundHandler {
+public class NetworkHandlerSound {
     public static void registerServer() {
 
         // Write the ordinal of the SoundCategory enum
