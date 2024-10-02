@@ -2,9 +2,9 @@ package me.kurisu.passableleaves;
 
 import io.wispforest.owo.network.OwoNetChannel;
 import me.kurisu.passableleaves.enchantment.PassableLeavesEnchantments;
-import me.kurisu.passableleaves.event.HitLeavesHandler;
-import me.kurisu.passableleaves.event.KeyInputHandler;
-import me.kurisu.passableleaves.event.SoundHandler;
+import me.kurisu.passableleaves.network.NetworkHandlerHitLeaves;
+import me.kurisu.passableleaves.network.NetworkHandlerKeyInput;
+import me.kurisu.passableleaves.network.NetworkHandlerSound;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
@@ -20,9 +20,9 @@ public class PassableLeaves implements ModInitializer {
     @Override
     public void onInitialize() {
         PassableLeavesEnchantments.initialize();
-        KeyInputHandler.registerServer();
-        SoundHandler.registerServer();
-        HitLeavesHandler.registerServer();
+        NetworkHandlerKeyInput.registerServer();
+        NetworkHandlerSound.registerServer();
+        NetworkHandlerHitLeaves.registerServer();
     }
 
     public static boolean isFlyingInCreative(PlayerEntity playerEntity) {

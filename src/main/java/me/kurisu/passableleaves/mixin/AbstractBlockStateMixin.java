@@ -15,7 +15,6 @@ import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
@@ -28,8 +27,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.List;
 
 @Mixin(AbstractBlock.AbstractBlockState.class)
 public abstract class AbstractBlockStateMixin implements AbstractBlockStateAccess {
@@ -73,28 +70,20 @@ public abstract class AbstractBlockStateMixin implements AbstractBlockStateAcces
             return;
         }
 
-        if (this.playerHitLeaves) {
-            Box area = new Box(pos).stretch(0f, 0.06f, 0f);
-            List<Entity> entitiesAtPosition = entity.getWorld().getOtherEntities(null, area);
-            if (entitiesAtPosition.isEmpty()) {
-                this.playerHitLeaves = false;
-            }
-        }
-
         if (entity instanceof ProjectileEntity projectileEntity) {
-            if (this.playerHitLeaves) {
-                cir.setReturnValue(VoxelShapes.empty());
-                return;
-            }
-
             if (((ProjectileEntityAccess) projectileEntity).passableLeaves$canPassThroughLeaves(pos)) {
                 cir.setReturnValue(VoxelShapes.empty());
                 return;
             }
         }
 
-        if (!(entity instanceof LivingEntity)) {
+        if (!(entity instanceof LivingEntity livingEntity)) {
             return;
+        } else {
+            if (this.playerHitLeaves) {
+                cir.setReturnValue(VoxelShapes.empty());
+                return;
+            }
         }
 
         if (!entity.isPlayer() && PassableLeaves.CONFIG.playerOnly()) {
@@ -123,7 +112,12 @@ public abstract class AbstractBlockStateMixin implements AbstractBlockStateAcces
             return;
         }
 
-        if (this.playerHitLeaves) {
+        int enchantmentLevel = 0;
+        if (PassableLeaves.CONFIG.enchantmentEnabled()) {
+            enchantmentLevel = EnchantmentHelper.getEquipmentLevel(PassableLeavesEnchantments.LEAVES_WALKER, livingEntity);
+        }
+
+        if (this.playerHitLeaves && enchantmentLevel < 3) {
             cir.setReturnValue(VoxelShapes.empty());
             return;
         }
@@ -134,15 +128,27 @@ public abstract class AbstractBlockStateMixin implements AbstractBlockStateAcces
             return;
         }
 
-        if (!PassableLeaves.CONFIG.leafWalking()) {
+        if (!PassableLeaves.CONFIG.leafWalking() && enchantmentLevel == 0) {
             cir.setReturnValue(VoxelShapes.empty());
         }
 
-        if (!PassableLeaves.CONFIG.leafSprinting() && entity.isSprinting()) {
+        if ((!PassableLeaves.CONFIG.leafSprinting() && entity.isSprinting()) && enchantmentLevel < 2) {
             cir.setReturnValue(VoxelShapes.empty());
         }
-
     }
+
+
+    @Inject(method = "getCollisionShape(Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/ShapeContext;)Lnet/minecraft/util/shape/VoxelShape;", at = @At("RETURN"), cancellable = true)
+    private void passableleaves$getCollisionShape$hit(BlockView world, BlockPos pos, ShapeContext context, CallbackInfoReturnable<VoxelShape> cir) {
+        if (!this.isIn(BlockTags.LEAVES)) {
+            return;
+        }
+
+        if (this.playerHitLeaves) {
+            this.playerHitLeaves = false;
+        }
+    }
+
 
     @Inject(method = "canPathfindThrough", at = @At("HEAD"), cancellable = true)
     private void passableleaves_canPathfindThrough(BlockView world, BlockPos pos, NavigationType type, CallbackInfoReturnable<Boolean> cir) {

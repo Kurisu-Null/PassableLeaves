@@ -2,8 +2,11 @@ package me.kurisu.passableleaves.mixin;
 
 import me.kurisu.passableleaves.PassableLeaves;
 import me.kurisu.passableleaves.access.EntityAccess;
+import me.kurisu.passableleaves.enchantment.PassableLeavesEnchantments;
 import net.minecraft.block.BlockState;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
@@ -85,6 +88,26 @@ public abstract class EntityMixin implements EntityAccess {
     @Inject(method = "getVelocityMultiplier", at = @At("HEAD"), cancellable = true)
     private void passableLeaves_getVelocityMultiplier(CallbackInfoReturnable<Float> cir) {
         if (this.isInsideLeaves) {
+
+            if ((Object) this instanceof LivingEntity livingEntity && PassableLeaves.CONFIG.enchantmentEnabled()) {
+                int enchantmentLevel = EnchantmentHelper.getEquipmentLevel(PassableLeavesEnchantments.LEAVES_STRIDER, livingEntity);
+
+                if (enchantmentLevel > 0) {
+                    int maxLevel = PassableLeavesEnchantments.LEAVES_STRIDER.getMaxLevel();
+                    float enchantmentMult = (float) (maxLevel - enchantmentLevel) / maxLevel; // Gradual reduction of slow
+
+                    // If max level, completely remove the slowdown
+                    if (enchantmentLevel == maxLevel) {
+                        cir.setReturnValue(1.0f); // No effect on jumping (normal jump velocity)
+                        return;
+                    }
+
+                    // Reduce the slow based on the enchantment level
+                    cir.setReturnValue(PassableLeaves.CONFIG.walkSlowMultiplier() * enchantmentMult);
+                    return;
+                }
+            }
+
             cir.setReturnValue(PassableLeaves.CONFIG.walkSlowMultiplier());
         }
     }
@@ -92,6 +115,26 @@ public abstract class EntityMixin implements EntityAccess {
     @Inject(method = "getJumpVelocityMultiplier", at = @At("HEAD"), cancellable = true)
     private void passableLeaves_getJumpVelocityMultiplier(CallbackInfoReturnable<Float> cir) {
         if (this.isInsideLeaves && this.fallDistance < this.getSafeFallDistance()) {
+
+            if ((Object) this instanceof LivingEntity livingEntity && PassableLeaves.CONFIG.enchantmentEnabled()) {
+                int enchantmentLevel = EnchantmentHelper.getEquipmentLevel(PassableLeavesEnchantments.LEAVES_STRIDER, livingEntity);
+
+                if (enchantmentLevel > 0) {
+                    int maxLevel = PassableLeavesEnchantments.LEAVES_STRIDER.getMaxLevel();
+                    float enchantmentMult = (float) (maxLevel - enchantmentLevel) / maxLevel; // Gradual reduction of slow
+
+                    // If max level, completely remove the slowdown
+                    if (enchantmentLevel == maxLevel) {
+                        cir.setReturnValue(1.0f); // No effect on jumping (normal jump velocity)
+                        return;
+                    }
+
+                    // Reduce the slow based on the enchantment level
+                    cir.setReturnValue(PassableLeaves.CONFIG.jumpSlowMultiplier() * enchantmentMult);
+                    return;
+                }
+            }
+
             cir.setReturnValue(PassableLeaves.CONFIG.jumpSlowMultiplier());
         }
     }
